@@ -24,6 +24,7 @@ export default class Camera {
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     this.renderer.setSize(this.sizes.width, this.sizes.height);
     this.renderer.setPixelRatio(this.sizes.pixelRatio);
+    this.renderer.setClearColor('#FFFFF0', 1);
   }
 
   resize() {

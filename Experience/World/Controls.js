@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import GUI from 'lil-gui';
 import Experience from '../Experience';
+import { Curve, Vector3 } from 'three';
+import Curves from '../Utils/Curves';
 export default class Controls {
   constructor() {
     this.experience = new Experience();
@@ -15,18 +17,30 @@ export default class Controls {
     this.gui = new GUI();
 
     this.guiObj = {
-      a1: 0.66,
-      a2: 0.42,
-      a3: 1.4,
-      b1: 2.62,
-      b2: 0.42,
-      b3: 1.64,
-      c1: 3.6,
-      c2: 0.42,
-      c3: 1.64,
-      d1: 5.58,
-      d2: 0.38,
-      d3: 1.5,
+      a1: 0,
+      a2: 10,
+      a3: 20,
+      b1: -1.18,
+      b2: 1.52,
+      b3: 2.76,
+      c1: -3.38,
+      c2: 2.02,
+      c3: 3.74,
+      d1: -5.7,
+      d2: 0.7,
+      d3: 2,
+      moveToVet: () => {
+        this.setPath(Curves.CenterToVet, Curves.CenterToVetLook);
+      },
+      moveFromVet: () => {
+        this.setPath(Curves.VetToCenter, Curves.VetToCenterLook);
+      },
+      moveToCoding: () => {
+        this.setPath(Curves.CenterToCoding, Curves.CenterToCodingLook);
+      },
+      moveFromCoding: () => {
+        this.setPath(Curves.CodingToCenter, Curves.CodingToCenterLook);
+      },
     };
     this.gui.add(this.guiObj, 'a1', -10, 10).onChange(() => {
       this.scene.remove(this.curveObject);
@@ -76,32 +90,27 @@ export default class Controls {
       this.scene.remove(this.curveObject);
       this.setPath();
     });
+    this.gui.add(this.guiObj, 'moveToVet');
+    this.gui.add(this.guiObj, 'moveFromVet');
+    this.gui.add(this.guiObj, 'moveToCoding');
+    this.gui.add(this.guiObj, 'moveFromCoding');
     this.setPath();
   }
 
-  setPath() {
-    // To Coding
-    // this.curve = new THREE.CatmullRomCurve3([
-    //   new THREE.Vector3(0.66, 0.42, 1.4),
-    //   new THREE.Vector3(-4, 0.42, 1.4),
-    //   new THREE.Vector3(-6, 0.42, 1.4),
-    //   new THREE.Vector3(-6, 0.38, 0.66),
-    // ]);
-
-    // To vet
+  setPath(curve = null, lookCurve = null) {
     this.curve = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(0.42, 0.42, -0.32),
-      new THREE.Vector3(0.66, 0.42, 1.64),
-      new THREE.Vector3(3.6, 0.42, 1.64),
-      new THREE.Vector3(5.58, 0.38, 1.5),
+      new THREE.Vector3(this.guiObj.a1, this.guiObj.a2, this.guiObj.a3),
+      new THREE.Vector3(this.guiObj.b1, this.guiObj.b2, this.guiObj.b3),
+      new THREE.Vector3(this.guiObj.c1, this.guiObj.c2, this.guiObj.c3),
+      new THREE.Vector3(this.guiObj.d1, this.guiObj.d2, this.guiObj.d3),
     ]);
-
-    // this.curve = new THREE.CatmullRomCurve3([
-    //   new THREE.Vector3(this.guiObj.a1, this.guiObj.a2, this.guiObj.a3),
-    //   new THREE.Vector3(this.guiObj.b1, this.guiObj.b2, this.guiObj.b3),
-    //   new THREE.Vector3(this.guiObj.c1, this.guiObj.c2, this.guiObj.c3),
-    //   new THREE.Vector3(this.guiObj.d1, this.guiObj.d2, this.guiObj.d3),
-    // ]);
+    this.curve = Curves.CenterToVet;
+    this.lookCurve = Curves.CenterToVetLook;
+    if (curve && lookCurve) {
+      this.curve = curve;
+      this.lookCurve = lookCurve;
+      this.progress = 0;
+    }
 
     this.points = this.curve.getPoints(50);
     this.geometry = new THREE.BufferGeometry().setFromPoints(this.points);
@@ -111,14 +120,17 @@ export default class Controls {
   }
 
   update() {
-    if (this.progress < 1) {
+    if (this.progress > 1) {
       this.curve.getPointAt(this.progress, this.dummyVector);
-      this.curve.getPointAt(this.progress + 0.00001, this.lookAtPosition);
-      this.progress += 0.001;
+      this.lookCurve.getPointAt(this.progress, this.lookAtPosition);
+      // this.curve.getPointAt(this.progress + 0.00001, this.lookAtPosition);
+      this.progress += 0.0025;
       this.camera.perspectiveCamera.position.copy(this.dummyVector);
-      this.camera.perspectiveCamera.lookAt(this.lookAtPosition);
+      this.camera.controls.target = this.lookAtPosition;
     } else {
-      this.camera.controls.update();
+      // this.progress = 0;
+      // this.curve = Curves.CodingToCenter;
+      // this.lookCurve = Curves.CodingToCenterLook;
     }
   }
 

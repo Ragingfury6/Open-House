@@ -1,6 +1,7 @@
 import Experience from '../Experience';
 import Environment from './Environment';
 import Room from './Room';
+import Marker from './Marker';
 import Controls from './Controls';
 import * as THREE from 'three';
 export default class World {
@@ -15,6 +16,7 @@ export default class World {
     this.resources.on('ready', () => {
       this.environment = new Environment();
       this.room = new Room();
+      this.marker = new Marker();
       this.controls = new Controls();
     });
   }
