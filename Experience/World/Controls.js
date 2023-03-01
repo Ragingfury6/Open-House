@@ -16,6 +16,8 @@ export default class Controls {
     this.lookAtPosition = new THREE.Vector3();
     this.gui = new GUI();
 
+    this.animationEnabled = false;
+
     this.guiObj = {
       a1: 0,
       a2: 10,
@@ -31,15 +33,19 @@ export default class Controls {
       d3: 2,
       moveToVet: () => {
         this.setPath(Curves.CenterToVet, Curves.CenterToVetLook);
+        this.animationEnabled = true;
       },
       moveFromVet: () => {
         this.setPath(Curves.VetToCenter, Curves.VetToCenterLook);
+        this.animationEnabled = true;
       },
       moveToCoding: () => {
         this.setPath(Curves.CenterToCoding, Curves.CenterToCodingLook);
+        this.animationEnabled = true;
       },
       moveFromCoding: () => {
         this.setPath(Curves.CodingToCenter, Curves.CodingToCenterLook);
+        this.animationEnabled = true;
       },
     };
     this.gui.add(this.guiObj, 'a1', -10, 10).onChange(() => {
@@ -104,8 +110,6 @@ export default class Controls {
       new THREE.Vector3(this.guiObj.c1, this.guiObj.c2, this.guiObj.c3),
       new THREE.Vector3(this.guiObj.d1, this.guiObj.d2, this.guiObj.d3),
     ]);
-    this.curve = Curves.CenterToVet;
-    this.lookCurve = Curves.CenterToVetLook;
     if (curve && lookCurve) {
       this.curve = curve;
       this.lookCurve = lookCurve;
@@ -120,17 +124,15 @@ export default class Controls {
   }
 
   update() {
-    if (this.progress > 1) {
+    if (this.progress < 1 && this.animationEnabled) {
       this.curve.getPointAt(this.progress, this.dummyVector);
       this.lookCurve.getPointAt(this.progress, this.lookAtPosition);
       // this.curve.getPointAt(this.progress + 0.00001, this.lookAtPosition);
       this.progress += 0.0025;
       this.camera.perspectiveCamera.position.copy(this.dummyVector);
       this.camera.controls.target = this.lookAtPosition;
-    } else {
-      // this.progress = 0;
-      // this.curve = Curves.CodingToCenter;
-      // this.lookCurve = Curves.CodingToCenterLook;
+    } else if (this.progress > 1) {
+      this.animationEnabled = false;
     }
   }
 
