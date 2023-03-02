@@ -1,7 +1,7 @@
 import Experience from '../Experience';
 import * as THREE from 'three';
 import Curves from '../Utils/Curves';
-export default class Room {
+export default class Marker {
   constructor() {
     this.experience = new Experience();
     this.scene = this.experience.scene;

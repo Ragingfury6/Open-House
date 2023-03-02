@@ -17,20 +17,27 @@ export default class Controls {
     this.gui = new GUI();
 
     this.animationEnabled = false;
+    this.pointIndex = 0;
 
     this.guiObj = {
       a1: 0,
-      a2: 10,
-      a3: 20,
-      b1: -1.18,
-      b2: 1.52,
-      b3: 2.76,
-      c1: -3.38,
-      c2: 2.02,
-      c3: 3.74,
-      d1: -5.7,
-      d2: 0.7,
-      d3: 2,
+      ADD_POINT: () => {
+        const folder = this.gui.addFolder(`v${this.pointIndex}`);
+        const obj = { a: 0, b: 0, c: 0 };
+        this[`v${this.pointIndex}`] = obj;
+        folder.add(obj, 'a', -50, 50, 0.01).onChange(() => this.updateCurve());
+        folder.add(obj, 'b', -50, 50, 0.01).onChange(() => this.updateCurve());
+        folder.add(obj, 'c', -50, 50, 0.01).onChange(() => this.updateCurve());
+        // this.guiObj[`v${this.pointIndex}a`] = 0;
+        // this.guiObj[`v${this.pointIndex}b`] = 0;
+        // this.guiObj[`v${this.pointIndex}c`] = 0;
+        // const folder = this.gui.addFolder(`v${this.pointIndex}`);
+        // this.gui.add(this.guiObj, `v${this.pointIndex}a`, -50, 50, 0.01);
+        // this.gui.add(this.guiObj, `v${this.pointIndex}b`, -50, 50, 0.01);
+        // this.gui.add(this.guiObj, `v${this.pointIndex}c`, -50, 50, 0.01);
+        this.pointIndex++;
+        this.updateCurve();
+      },
       moveToVet: () => {
         this.setPath(Curves.CenterToVet, Curves.CenterToVetLook);
         this.animationEnabled = true;
@@ -48,87 +55,80 @@ export default class Controls {
         this.animationEnabled = true;
       },
     };
-    this.gui.add(this.guiObj, 'a1', -10, 10).onChange(() => {
-      this.scene.remove(this.curveObject);
-      this.setPath();
-    });
-    this.gui.add(this.guiObj, 'a2', -10, 10).onChange(() => {
-      this.scene.remove(this.curveObject);
-      this.setPath();
-    });
-    this.gui.add(this.guiObj, 'a3', -10, 10).onChange(() => {
-      this.scene.remove(this.curveObject);
-      this.setPath();
-    });
-    this.gui.add(this.guiObj, 'b1', -10, 10).onChange(() => {
-      this.scene.remove(this.curveObject);
-      this.setPath();
-    });
-    this.gui.add(this.guiObj, 'b2', -10, 10).onChange(() => {
-      this.scene.remove(this.curveObject);
-      this.setPath();
-    });
-    this.gui.add(this.guiObj, 'b3', -10, 10).onChange(() => {
-      this.scene.remove(this.curveObject);
-      this.setPath();
-    });
-    this.gui.add(this.guiObj, 'c1', -10, 10).onChange(() => {
-      this.scene.remove(this.curveObject);
-      this.setPath();
-    });
-    this.gui.add(this.guiObj, 'c2', -10, 10).onChange(() => {
-      this.scene.remove(this.curveObject);
-      this.setPath();
-    });
-    this.gui.add(this.guiObj, 'c3', -10, 10).onChange(() => {
-      this.scene.remove(this.curveObject);
-      this.setPath();
-    });
-    this.gui.add(this.guiObj, 'd1', -10, 10).onChange(() => {
-      this.scene.remove(this.curveObject);
-      this.setPath();
-    });
-    this.gui.add(this.guiObj, 'd2', -10, 10).onChange(() => {
-      this.scene.remove(this.curveObject);
-      this.setPath();
-    });
-    this.gui.add(this.guiObj, 'd3', -10, 10).onChange(() => {
-      this.scene.remove(this.curveObject);
-      this.setPath();
-    });
+    // this.gui.add(this.guiObj, 'a1', -10, 10).onChange(() => {
+    //   this.scene.remove(this.curveObject);
+    //   this.setPath();
+    // });
+
+    this.gui.add(this.guiObj, 'ADD_POINT');
     this.gui.add(this.guiObj, 'moveToVet');
     this.gui.add(this.guiObj, 'moveFromVet');
     this.gui.add(this.guiObj, 'moveToCoding');
     this.gui.add(this.guiObj, 'moveFromCoding');
+    const arr = [
+      new Vector3(0, 10, 20),
+      new Vector3(-2, 2, 5),
+      new Vector3(-5.52, 0.59, 0.77),
+      new Vector3(-5.47, 0.59, -0.39),
+      new Vector3(-5.04, 0.59, -0.46),
+      new Vector3(-5.04, 0.59, -0.75),
+      new Vector3(-5.47, 0.59, -0.72),
+    ];
+    arr.forEach(({ x, y, z }) => {
+      const obj = { a: x, b: y, c: z };
+      this[`v${this.pointIndex}`] = obj;
+      const folder = this.gui.addFolder(`v${this.pointIndex}`);
+      folder.add(obj, 'a', -50, 50, 0.01).onChange(() => this.updateCurve());
+      folder.add(obj, 'b', -50, 50, 0.01).onChange(() => this.updateCurve());
+      folder.add(obj, 'c', -50, 50, 0.01).onChange(() => this.updateCurve());
+      this.pointIndex++;
+    });
+    this.updateCurve();
     this.setPath();
   }
 
-  setPath(curve = null, lookCurve = null) {
-    this.curve = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(this.guiObj.a1, this.guiObj.a2, this.guiObj.a3),
-      new THREE.Vector3(this.guiObj.b1, this.guiObj.b2, this.guiObj.b3),
-      new THREE.Vector3(this.guiObj.c1, this.guiObj.c2, this.guiObj.c3),
-      new THREE.Vector3(this.guiObj.d1, this.guiObj.d2, this.guiObj.d3),
-    ]);
-    if (curve && lookCurve) {
-      this.curve = curve;
-      this.lookCurve = lookCurve;
-      this.progress = 0;
+  updateCurve() {
+    if (this.curveObject) this.scene.remove(this.curveObject);
+    const curveArray = [];
+    for (let i = this.pointIndex - 1; i >= 0; i--) {
+      const { a, b, c } = this[`v${i}`];
+      curveArray.unshift(new THREE.Vector3(a, b, c));
     }
-
+    this.curve = new THREE.CatmullRomCurve3(curveArray);
     this.points = this.curve.getPoints(50);
     this.geometry = new THREE.BufferGeometry().setFromPoints(this.points);
     this.material = new THREE.LineBasicMaterial({ color: 0xff0000 });
     this.curveObject = new THREE.Line(this.geometry, this.material);
-    // this.scene.add(this.curveObject);
+    this.scene.add(this.curveObject);
   }
 
+  setPath(curve = null, lookCurve = null) {
+    if (curve && lookCurve) {
+      {
+        // this.curve = curve;
+        // this.lookCurve = lookCurve;
+        // this.progress = 0;
+
+        // this.points = this.curve.getPoints(50);
+        // this.geometry = new THREE.BufferGeometry().setFromPoints(this.points);
+        // this.material = new THREE.LineBasicMaterial({ color: 0xff0000 });
+        // this.curveObject = new THREE.Line(this.geometry, this.material);
+        this.updateCurve();
+      }
+    }
+  }
   update() {
     if (this.progress < 1 && this.animationEnabled) {
       this.curve.getPointAt(this.progress, this.dummyVector);
-      this.lookCurve.getPointAt(this.progress, this.lookAtPosition);
-      // this.curve.getPointAt(this.progress + 0.00001, this.lookAtPosition);
-      this.progress += 0.0025;
+      // this.lookCurve.getPointAt(this.progress, this.lookAtPosition);
+      if (this.progress + 0.00001 < 1) {
+        this.curve.getPointAt(this.progress + 0.00001, this.lookAtPosition);
+      }
+      if (this.progress < 0.9) {
+        this.progress += 0.002;
+      } else {
+        this.progress += 0.0001;
+      }
       this.camera.perspectiveCamera.position.copy(this.dummyVector);
       this.camera.controls.target = this.lookAtPosition;
     } else if (this.progress > 1) {

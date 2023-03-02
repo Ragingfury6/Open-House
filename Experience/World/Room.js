@@ -15,6 +15,8 @@ export default class Room {
         // console.log(child);
         child.castShadow = true;
         child.receiveShadow = true;
+        child.material.transparent = true;
+        child.material.opacity = 0;
 
         // if (child.name === 'TV_bottom001') {
         //   const glassMaterial = new THREE.MeshPhysicalMaterial({
@@ -28,6 +30,7 @@ export default class Room {
         // }
       }
     });
+    console.log(this.roomScene);
     this.scene.add(this.roomScene);
   }
 

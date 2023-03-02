@@ -5,6 +5,8 @@ import Marker from './Marker';
 import Controls from './Controls';
 import * as THREE from 'three';
 import Raycaster from './Raycaster';
+import B1F1 from './B1F1';
+import B1F2 from './B1F2';
 export default class World {
   constructor() {
     this.experience = new Experience();
@@ -20,6 +22,8 @@ export default class World {
       this.marker = new Marker();
       this.controls = new Controls();
       this.raycaster = new Raycaster();
+      this.b1f1 = new B1F1();
+      this.b1f2 = new B1F2();
     });
   }
 
