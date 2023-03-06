@@ -66,13 +66,14 @@ export default class Controls {
     this.gui.add(this.guiObj, 'moveToCoding');
     this.gui.add(this.guiObj, 'moveFromCoding');
     const arr = [
-      new Vector3(0, 10, 20),
-      new Vector3(-2, 2, 5),
-      new Vector3(-5.52, 0.59, 0.77),
-      new Vector3(-5.47, 0.59, -0.39),
-      new Vector3(-5.04, 0.59, -0.46),
-      new Vector3(-5.04, 0.59, -0.75),
-      new Vector3(-5.47, 0.59, -0.72),
+      new Vector3(-18.17, 10, -23.08),
+      new Vector3(-12.11, 0.28, -8.33),
+      new Vector3(-13.19, -0.75, -4.37),
+      new Vector3(-14.53, -0.75, -3.21),
+      // new Vector3(-17.84, -0.75, -3.74),
+      new Vector3(-18.92, -0.75, -4.05),
+      new Vector3(-24.14, -0.75, -4.43),
+      new Vector3(-23.27, -0.75, -2.09),
     ];
     arr.forEach(({ x, y, z }) => {
       const obj = { a: x, b: y, c: z };
@@ -95,11 +96,11 @@ export default class Controls {
       curveArray.unshift(new THREE.Vector3(a, b, c));
     }
     this.curve = new THREE.CatmullRomCurve3(curveArray);
-    this.points = this.curve.getPoints(50);
+    this.points = this.curve.getPoints(100);
     this.geometry = new THREE.BufferGeometry().setFromPoints(this.points);
     this.material = new THREE.LineBasicMaterial({ color: 0xff0000 });
     this.curveObject = new THREE.Line(this.geometry, this.material);
-    this.scene.add(this.curveObject);
+    // this.scene.add(this.curveObject);
   }
 
   setPath(curve = null, lookCurve = null) {
@@ -121,14 +122,18 @@ export default class Controls {
     if (this.progress < 1 && this.animationEnabled) {
       this.curve.getPointAt(this.progress, this.dummyVector);
       // this.lookCurve.getPointAt(this.progress, this.lookAtPosition);
-      if (this.progress + 0.00001 < 1) {
-        this.curve.getPointAt(this.progress + 0.00001, this.lookAtPosition);
-      }
-      if (this.progress < 0.9) {
-        this.progress += 0.002;
+      // if (this.progress + 0.00001 < 1) {
+      this.curve.getPointAt(
+        Math.min(this.progress + 0.00001, 1),
+        this.lookAtPosition
+      );
+      // }
+      if (this.progress < 0.85) {
+        this.progress += 0.001;
       } else {
-        this.progress += 0.0001;
+        this.progress += 0.0005;
       }
+      // this.progress += 0.001;
       this.camera.perspectiveCamera.position.copy(this.dummyVector);
       this.camera.controls.target = this.lookAtPosition;
     } else if (this.progress > 1) {

@@ -17,7 +17,7 @@ export default class Room {
     this.sunLight.position.set(1.5, 7, 3);
     this.scene.add(this.sunLight);
 
-    this.ambientLight = new THREE.AmbientLight('#fff', 0.2);
+    this.ambientLight = new THREE.AmbientLight('#fff', 0.4);
     this.scene.add(this.ambientLight);
   }
 

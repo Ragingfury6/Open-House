@@ -11,7 +11,7 @@ export default class Marker {
     this.positionMaps = [
       {
         name: 'Coding',
-        position: new THREE.Vector3(-5.75, 1.1, -1),
+        position: new THREE.Vector3(-5.75, 2, -2.5),
         toPosition: Curves.CenterToCoding,
         toLook: Curves.CenterToCodingLook,
         fromPosition: Curves.CodingToCenter,
@@ -25,7 +25,7 @@ export default class Marker {
         fromPosition: Curves.VetToCenter,
         fromLook: Curves.VetToCenterLook,
       },
-      { name: 'HVAC', position: new THREE.Vector3(-2.5, 1.1, -1) },
+      { name: 'HVAC', position: new THREE.Vector3(-23, 1.1, -1) },
       { name: 'Auto', position: new THREE.Vector3(3.5, 1.1, -2.8) },
       { name: 'Unknown', position: new THREE.Vector3(3, 1.1, -0.5) },
     ];

@@ -5,9 +5,9 @@ export default class Curves {
     new Vector3(-2, 2, 5),
     new Vector3(-5.52, 0.59, 0.77),
     new Vector3(-5.47, 0.59, -0.39),
-    new Vector3(-5.04, 0.59, -0.46),
-    new Vector3(-5.04, 0.59, -0.75),
-    new Vector3(-5.47, 0.59, -0.72),
+    new Vector3(-4.44, 0.59, -0.63),
+    new Vector3(-4.9, 0.59, -1.46),
+    new Vector3(-5.53, 0.59, -1.65),
   ]);
   static CodingToCenter = new CatmullRomCurve3([
     new Vector3(-5.7, 0.7, 2),
@@ -23,9 +23,14 @@ export default class Curves {
     new Vector3(0, 0, 0),
   ]);
   static CenterToVet = new CatmullRomCurve3([
-    new Vector3(0, 10, 20),
-    new Vector3(1.52, 1.04, 2.76),
-    new Vector3(4.5, 1.04, 1.04),
+    new Vector3(-18.17, 10, -23.08),
+    new Vector3(-12.11, 0.28, -8.33),
+    new Vector3(-13.19, -0.75, -4.37),
+    new Vector3(-14.53, -0.75, -3.21),
+    // new Vector3(-17.84, -0.75, -3.74),
+    new Vector3(-18.92, -0.75, -4.05),
+    new Vector3(-24.14, -0.75, -4.43),
+    new Vector3(-23.27, -0.75, -2.09),
   ]);
   static VetToCenter = new CatmullRomCurve3([
     new Vector3(4.5, 1.04, 1.04),
