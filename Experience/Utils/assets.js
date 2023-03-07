@@ -3,6 +3,12 @@ export default [
   { name: 'marker', type: 'glbModel', path: '/models/MapMarker.glb' },
   { name: 'b1f1', type: 'glbModel', path: '/models/B1F1.glb' },
   { name: 'b1f2', type: 'glbModel', path: '/models/B1F2.glb' },
+  { name: 'auto', type: 'glbModel', path: '/models/automotive.glb' },
+  {
+    name: 'autoCollision',
+    type: 'glbModel',
+    path: '/models/autocollision.glb',
+  },
   { name: 'metalAo', type: 'texture', path: '/textures/MetalTexture/AO.jpg' },
   {
     name: 'metalDisp',

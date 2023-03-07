@@ -1,13 +1,18 @@
 import { CatmullRomCurve3, Vector3 } from 'three';
 export default class Curves {
   static CenterToCoding = new CatmullRomCurve3([
-    new Vector3(0, 10, 20),
-    new Vector3(-2, 2, 5),
-    new Vector3(-5.52, 0.59, 0.77),
-    new Vector3(-5.47, 0.59, -0.39),
-    new Vector3(-4.44, 0.59, -0.63),
-    new Vector3(-4.9, 0.59, -1.46),
-    new Vector3(-5.53, 0.59, -1.65),
+    new Vector3(-18.17, 10, -23.08),
+    new Vector3(-7.25, 2, -8.33),
+    new Vector3(-7.43, 1, -2.73),
+    new Vector3(-7.79, 1, -2.66),
+    new Vector3(-8.5, 1, -2.66),
+    new Vector3(-8.5, 1, -1.95),
+    new Vector3(-7.43, 1, -1.83),
+    // new Vector3(-5.52, 0.59, 0.77),
+    // new Vector3(-5.47, 0.59, -0.39),
+    // new Vector3(-4.44, 0.59, -0.63),
+    // new Vector3(-4.9, 0.59, -1.46),
+    // new Vector3(-5.53, 0.59, -1.65),
   ]);
   static CodingToCenter = new CatmullRomCurve3([
     new Vector3(-5.7, 0.7, 2),

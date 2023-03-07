@@ -7,6 +7,8 @@ import * as THREE from 'three';
 import Raycaster from './Raycaster';
 import B1F1 from './B1F1';
 import B1F2 from './B1F2';
+import Auto from './Auto';
+import AutoCollision from './AutoCollision';
 export default class World {
   constructor() {
     this.experience = new Experience();
@@ -24,6 +26,8 @@ export default class World {
       this.raycaster = new Raycaster();
       this.b1f1 = new B1F1();
       this.b1f2 = new B1F2();
+      this.auto = new Auto();
+      this.autoCollision = new AutoCollision();
     });
   }
 

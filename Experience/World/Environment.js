@@ -7,6 +7,7 @@ export default class Room {
     this.resources = this.experience.resources;
     this.setSunlight();
     this.setB1F2PointLights();
+    this.setB1F1PointLights();
   }
   setSunlight() {
     this.sunLight = new THREE.DirectionalLight('#fff', 3);
@@ -22,9 +23,16 @@ export default class Room {
   }
 
   setB1F2PointLights() {
-    const p1 = new THREE.PointLight('#fff', 1);
-    p1.position.copy(new THREE.Vector3(-5.4, 1, -1));
+    const p1 = new THREE.PointLight('#0f0', 0.25);
+    p1.position.copy(new THREE.Vector3(-6.5, 1, -2));
     this.scene.add(p1);
+  }
+
+  setB1F1PointLights() {
+    const p1 = new THREE.PointLight('#0f0', 0.75);
+    p1.position.copy(new THREE.Vector3(-23.5, -0.75, -2.09));
+    this.scene.add(p1);
+    // this.scene.add(new THREE.PointLightHelper(p1));
   }
 
   resize() {}

@@ -100,7 +100,7 @@ export default class Controls {
     this.geometry = new THREE.BufferGeometry().setFromPoints(this.points);
     this.material = new THREE.LineBasicMaterial({ color: 0xff0000 });
     this.curveObject = new THREE.Line(this.geometry, this.material);
-    // this.scene.add(this.curveObject);
+    this.scene.add(this.curveObject);
   }
 
   setPath(curve = null, lookCurve = null) {
@@ -128,7 +128,7 @@ export default class Controls {
         this.lookAtPosition
       );
       // }
-      if (this.progress < 0.85) {
+      if (this.progress < 0.8) {
         this.progress += 0.001;
       } else {
         this.progress += 0.0005;

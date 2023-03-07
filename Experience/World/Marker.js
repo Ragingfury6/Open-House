@@ -11,7 +11,7 @@ export default class Marker {
     this.positionMaps = [
       {
         name: 'Coding',
-        position: new THREE.Vector3(-5.75, 2, -2.5),
+        position: new THREE.Vector3(-15, 2, -2.5),
         toPosition: Curves.CenterToCoding,
         toLook: Curves.CenterToCodingLook,
         fromPosition: Curves.CodingToCenter,
@@ -19,15 +19,15 @@ export default class Marker {
       },
       {
         name: 'Vet',
-        position: new THREE.Vector3(7.25, 1.1, 2),
+        position: new THREE.Vector3(-7.25, 1.1, 2),
         toPosition: Curves.CenterToVet,
         toLook: Curves.CenterToVetLook,
         fromPosition: Curves.VetToCenter,
         fromLook: Curves.VetToCenterLook,
       },
       { name: 'HVAC', position: new THREE.Vector3(-23, 1.1, -1) },
-      { name: 'Auto', position: new THREE.Vector3(3.5, 1.1, -2.8) },
-      { name: 'Unknown', position: new THREE.Vector3(3, 1.1, -0.5) },
+      { name: 'Auto', position: new THREE.Vector3(-52, 1.1, -6) },
+      { name: 'AutoCollision', position: new THREE.Vector3(-52, 1.1, 4) },
     ];
     this.setModel();
   }
@@ -55,7 +55,7 @@ export default class Marker {
 
     this.unknownBuildingMarker = this.markerScene.clone();
     this.unknownBuildingMarker.children[0].position.copy(
-      this.positionMaps.find((m) => m.name === 'Unknown').position
+      this.positionMaps.find((m) => m.name === 'AutoCollision').position
     );
 
     this.scene.add(

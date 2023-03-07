@@ -28,7 +28,8 @@ export default class B1F1 {
       },
     };
     // this.gui = new GUI();
-    this.obj = { x: -33.67, y: -1.37, z: 52.13 };
+    // this.obj = { x: -33.67, y: -1.37, z: 52.13 };
+    this.obj = { x: 0, y: 0, z: 0 };
     // this.gui
     //   .add(this.obj, 'x', -100, 100, 0.01)
     //   .onChange(() =>
@@ -45,7 +46,7 @@ export default class B1F1 {
     //     this.roomScene.position.set(this.obj.x, this.obj.y, this.obj.z)
     //   );
     this.roomScene.position.set(this.obj.x, this.obj.y, this.obj.z);
-    this.roomScene.scale.set(3, 3, 3);
+    this.roomScene.scale.set(1, 1, 1);
 
     const wallsMaterial = new THREE.MeshPhysicalMaterial({
       aoMap: this.textures.metal.ao,
