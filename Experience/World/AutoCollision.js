@@ -9,26 +9,11 @@ export default class AutoCollision {
     this.resources = this.experience.resources;
     this.room = this.resources.items.autoCollision;
     this.roomScene = this.room.scene;
-
-    this.textures = {
-      metal: {
-        ao: this.resources.items.metalAo,
-        disp: this.resources.items.metalDisp,
-        flat: this.resources.items.metalFlat,
-        metalness: this.resources.items.metalMetalness,
-        normal: this.resources.items.metalNormal,
-        roughness: this.resources.items.metalRoughness,
-      },
-      tiles: {
-        disp: this.resources.items.tilesDisp,
-        flat: this.resources.items.tilesFlat,
-        gloss: this.resources.items.tilesGloss,
-        normal: this.resources.items.tilesNormal,
-        refl: this.resources.items.tilesRefl,
-      },
-    };
+    this.materials = this.experience.world.materials;
     // this.gui = new GUI();
     this.obj = { x: -46.06, y: -1.37, z: 32 };
+    this.roomScene.children.find((c) => c.name === 'glass001').material =
+      this.materials.glassMaterial;
     // this.gui
     //   .add(this.obj, 'x', -100, 100, 0.01)
     //   .onChange(() =>
@@ -44,23 +29,8 @@ export default class AutoCollision {
     //   .onChange(() =>
     //     this.roomScene.position.set(this.obj.x, this.obj.y, this.obj.z)
     //   );
-    this.roomScene.position.set(this.obj.x, this.obj.y, this.obj.z);
-    this.roomScene.scale.set(3, 3, 3);
-
-    const wallsMaterial = new THREE.MeshPhysicalMaterial({
-      aoMap: this.textures.metal.ao,
-      // displacementMap: this.textures.metal.disp,
-      map: this.textures.metal.flat,
-      metalnessMap: this.textures.metal.metalness,
-      normalMap: this.textures.metal.normal,
-      roughnessMap: this.textures.metal.roughness,
-    });
-    // const wallsMaterial = new THREE.MeshPhysicalMaterial({ color: '#f0f' });
-    const floorMaterial = new THREE.MeshPhysicalMaterial({
-      map: this.textures.tiles.flat,
-      normalMap: this.textures.tiles.normal,
-      specularColorMap: this.textures.tiles.gloss,
-    });
+    // this.roomScene.position.set(this.obj.x, this.obj.y, this.obj.z);
+    // this.roomScene.scale.set(3, 3, 3);
     console.log(this.roomScene);
     // this.roomScene.children.find((c) => c.name === 'walls001').material =
     //   wallsMaterial;

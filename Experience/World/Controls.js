@@ -14,7 +14,7 @@ export default class Controls {
     this.progress = 0;
     this.dummyVector = new THREE.Vector3();
     this.lookAtPosition = new THREE.Vector3();
-    this.gui = new GUI();
+    // this.gui = new GUI();
 
     this.animationEnabled = false;
     this.pointIndex = 0;
@@ -60,63 +60,40 @@ export default class Controls {
     //   this.setPath();
     // });
 
-    this.gui.add(this.guiObj, 'ADD_POINT');
-    this.gui.add(this.guiObj, 'moveToVet');
-    this.gui.add(this.guiObj, 'moveFromVet');
-    this.gui.add(this.guiObj, 'moveToCoding');
-    this.gui.add(this.guiObj, 'moveFromCoding');
-    const arr = [
-      new Vector3(-18.17, 10, -23.08),
-      new Vector3(-12.11, 0.28, -8.33),
-      new Vector3(-13.19, -0.75, -4.37),
-      new Vector3(-14.53, -0.75, -3.21),
-      // new Vector3(-17.84, -0.75, -3.74),
-      new Vector3(-18.92, -0.75, -4.05),
-      new Vector3(-24.14, -0.75, -4.43),
-      new Vector3(-23.27, -0.75, -2.09),
-    ];
-    arr.forEach(({ x, y, z }) => {
-      const obj = { a: x, b: y, c: z };
-      this[`v${this.pointIndex}`] = obj;
-      const folder = this.gui.addFolder(`v${this.pointIndex}`);
-      folder.add(obj, 'a', -50, 50, 0.01).onChange(() => this.updateCurve());
-      folder.add(obj, 'b', -50, 50, 0.01).onChange(() => this.updateCurve());
-      folder.add(obj, 'c', -50, 50, 0.01).onChange(() => this.updateCurve());
-      this.pointIndex++;
-    });
-    this.updateCurve();
-    this.setPath();
+    // this.gui.add(this.guiObj, 'ADD_POINT');
+    // this.gui.add(this.guiObj, 'moveToVet');
+    // this.gui.add(this.guiObj, 'moveFromVet');
+    // this.gui.add(this.guiObj, 'moveToCoding');
+    // this.gui.add(this.guiObj, 'moveFromCoding');
+    // const arr = [new Vector3(0, 8, 13.78), new Vector3(-0.41, 0.33, 1.43)];
+    // arr.forEach(({ x, y, z }) => {
+    //   const obj = { a: x, b: y, c: z };
+    //   this[`v${this.pointIndex}`] = obj;
+    //   const folder = this.gui.addFolder(`v${this.pointIndex}`);
+    //   folder.add(obj, 'a', -50, 50, 0.01).onChange(() => this.updateCurve());
+    //   folder.add(obj, 'b', -50, 50, 0.01).onChange(() => this.updateCurve());
+    //   folder.add(obj, 'c', -50, 50, 0.01).onChange(() => this.updateCurve());
+    //   this.pointIndex++;
+    // });
+    // this.updateCurve();
+    // this.setPath();
   }
 
-  updateCurve() {
+  updateCurve(toPosition) {
     if (this.curveObject) this.scene.remove(this.curveObject);
-    const curveArray = [];
-    for (let i = this.pointIndex - 1; i >= 0; i--) {
-      const { a, b, c } = this[`v${i}`];
-      curveArray.unshift(new THREE.Vector3(a, b, c));
-    }
-    this.curve = new THREE.CatmullRomCurve3(curveArray);
+    // const curveArray = [];
+    // for (let i = this.pointIndex - 1; i >= 0; i--) {
+    //   const { a, b, c } = this[`v${i}`];
+    //   curveArray.unshift(new THREE.Vector3(a, b, c));
+    // }
+    this.curve = toPosition;
     this.points = this.curve.getPoints(100);
     this.geometry = new THREE.BufferGeometry().setFromPoints(this.points);
     this.material = new THREE.LineBasicMaterial({ color: 0xff0000 });
     this.curveObject = new THREE.Line(this.geometry, this.material);
-    this.scene.add(this.curveObject);
-  }
-
-  setPath(curve = null, lookCurve = null) {
-    if (curve && lookCurve) {
-      {
-        // this.curve = curve;
-        // this.lookCurve = lookCurve;
-        // this.progress = 0;
-
-        // this.points = this.curve.getPoints(50);
-        // this.geometry = new THREE.BufferGeometry().setFromPoints(this.points);
-        // this.material = new THREE.LineBasicMaterial({ color: 0xff0000 });
-        // this.curveObject = new THREE.Line(this.geometry, this.material);
-        this.updateCurve();
-      }
-    }
+    this.progress = 0;
+    this.animationEnabled = true;
+    // this.scene.add(this.curveObject);
   }
   update() {
     if (this.progress < 1 && this.animationEnabled) {
@@ -129,9 +106,9 @@ export default class Controls {
       );
       // }
       if (this.progress < 0.8) {
-        this.progress += 0.001;
+        this.progress += 0.002;
       } else {
-        this.progress += 0.0005;
+        this.progress += 0.00025;
       }
       // this.progress += 0.001;
       this.camera.perspectiveCamera.position.copy(this.dummyVector);

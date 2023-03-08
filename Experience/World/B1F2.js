@@ -9,25 +9,7 @@ export default class B1F2 {
     this.resources = this.experience.resources;
     this.room = this.resources.items.b1f2;
     this.roomScene = this.room.scene;
-    // this.roomScene.rotation.y = Math.PI;
-
-    this.textures = {
-      metal: {
-        ao: this.resources.items.metalAo,
-        disp: this.resources.items.metalDisp,
-        flat: this.resources.items.metalFlat,
-        metalness: this.resources.items.metalMetalness,
-        normal: this.resources.items.metalNormal,
-        roughness: this.resources.items.metalRoughness,
-      },
-      tiles: {
-        disp: this.resources.items.tilesDisp,
-        flat: this.resources.items.tilesFlat,
-        gloss: this.resources.items.tilesGloss,
-        normal: this.resources.items.tilesNormal,
-        refl: this.resources.items.tilesRefl,
-      },
-    };
+    this.materials = this.experience.world.materials;
 
     // this.gui = new GUI();
     // this.guiObject = {
@@ -41,23 +23,10 @@ export default class B1F2 {
       z: 0,
     };
     this.roomScene.position.copy(this.guiObject);
-    const wallsMaterial = new THREE.MeshPhysicalMaterial({
-      aoMap: this.textures.metal.ao,
-      // displacementMap: this.textures.metal.disp,
-      map: this.textures.metal.flat,
-      metalnessMap: this.textures.metal.metalness,
-      normalMap: this.textures.metal.normal,
-      roughnessMap: this.textures.metal.roughness,
-    });
-    const floorMaterial = new THREE.MeshPhysicalMaterial({
-      map: this.textures.tiles.flat,
-      normalMap: this.textures.tiles.normal,
-      specularColorMap: this.textures.tiles.gloss,
-    });
     this.roomScene.children.find((c) => c.name === 'walls003').material =
-      wallsMaterial;
+      this.materials.wallsMaterial;
     this.roomScene.children.find((c) => c.name === 'floor002').material =
-      floorMaterial;
+      this.materials.floorMaterial;
     // this.gui.add(this.guiObject, 'x', -100, 100, 0.01).onChange((v) => {
     //   console.log(this.roomScene);
     //   this.roomScene.position.x = v;

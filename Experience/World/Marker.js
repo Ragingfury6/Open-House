@@ -11,23 +11,34 @@ export default class Marker {
     this.positionMaps = [
       {
         name: 'Coding',
-        position: new THREE.Vector3(-15, 2, -2.5),
+        position: new THREE.Vector3(-5.7, 1.5, -0.75),
         toPosition: Curves.CenterToCoding,
-        toLook: Curves.CenterToCodingLook,
         fromPosition: Curves.CodingToCenter,
-        fromLook: Curves.CodingToCenterLook,
       },
       {
         name: 'Vet',
-        position: new THREE.Vector3(-7.25, 1.1, 2),
+        position: new THREE.Vector3(8, 1, 2.5),
         toPosition: Curves.CenterToVet,
-        toLook: Curves.CenterToVetLook,
         fromPosition: Curves.VetToCenter,
-        fromLook: Curves.VetToCenterLook,
       },
-      { name: 'HVAC', position: new THREE.Vector3(-23, 1.1, -1) },
-      { name: 'Auto', position: new THREE.Vector3(-52, 1.1, -6) },
-      { name: 'AutoCollision', position: new THREE.Vector3(-52, 1.1, 4) },
+      {
+        name: 'HVAC',
+        position: new THREE.Vector3(-3.5, 1, -1.25),
+        toPosition: Curves.CenterToHVAC,
+        fromPosition: Curves.HVACToCenter,
+      },
+      {
+        name: 'Auto',
+        position: new THREE.Vector3(3, 1, 0),
+        toPosition: Curves.CenterToAuto,
+        fromPosition: Curves.AutoToCenter,
+      },
+      {
+        name: 'AutoCollision',
+        position: new THREE.Vector3(3.5, 1, -3),
+        toPosition: Curves.CenterToAutoCollision,
+        fromPosition: Curves.AutoCollisionToCenter,
+      },
     ];
     this.setModel();
   }

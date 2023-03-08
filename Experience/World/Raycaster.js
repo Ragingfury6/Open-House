@@ -27,8 +27,8 @@ export default class Raycaster {
       const marker = this.markers.positionMaps.find((m) =>
         m.position.equals(markerIntersect.object.position)
       );
-      this.controls.animationEnabled = true;
-      this.controls.setPath(marker.toPosition, marker.toLook);
+      // this.controls.animationEnabled = true;
+      this.controls.updateCurve(marker.toPosition);
     }
   }
   updateRaycast() {

@@ -8,9 +8,11 @@ export default class Room {
     this.resources = this.experience.resources;
     this.room = this.resources.items.room;
     this.roomScene = this.room.scene;
+    this.materials = this.experience.world.materials;
     this.setModel();
   }
   setModel() {
+    console.log(this.roomScene);
     this.roomScene.traverse((child) => {
       if (child instanceof THREE.Mesh) {
         // console.log(child);
@@ -20,6 +22,19 @@ export default class Room {
         } else {
           child.castShadow = true;
           child.receiveShadow = true;
+        }
+        if (child.name === 'parking' || child.name === 'parking1') {
+          console.log(child);
+          // child.geometry.attributes.uv2 = new THREE.BufferAttribute(
+          //   child.geometry.attributes.uv.array,
+          //   2
+          // );
+
+          child.material = this.materials.asphaltMaterial;
+        }
+        if (child.name === 'gravel') {
+          child.material = this.materials.dirtMaterial;
+          child.position.y -= 0.015;
         }
 
         // if (child.name === 'TV_bottom001') {

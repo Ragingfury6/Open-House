@@ -4,6 +4,7 @@ export default [
   { name: 'b1f1', type: 'glbModel', path: '/models/B1F1.glb' },
   { name: 'b1f2', type: 'glbModel', path: '/models/B1F2.glb' },
   { name: 'auto', type: 'glbModel', path: '/models/automotive.glb' },
+  { name: 'vet', type: 'glbModel', path: '/models/veterinary.glb' },
   {
     name: 'autoCollision',
     type: 'glbModel',
@@ -84,5 +85,65 @@ export default [
     name: 'tilesRefl',
     type: 'texture',
     path: '/textures/TilesTexture/REFL.jpg',
+  },
+  {
+    name: 'asphaltFlat',
+    type: 'texture',
+    path: '/textures/AsphaltTexture/FLAT.jpg',
+  },
+  {
+    name: 'asphaltAo',
+    type: 'texture',
+    path: '/textures/AsphaltTexture/AO.jpg',
+  },
+  {
+    name: 'asphaltDisp',
+    type: 'texture',
+    path: '/textures/AsphaltTexture/DISP.jpg',
+  },
+  {
+    name: 'asphaltNormal',
+    type: 'texture',
+    path: '/textures/AsphaltTexture/NORMAL.jpg',
+  },
+  {
+    name: 'asphaltGloss',
+    type: 'texture',
+    path: '/textures/AsphaltTexture/GLOSS.jpg',
+  },
+  {
+    name: 'dirtAo',
+    type: 'texture',
+    path: '/textures/DirtTexture/AO.jpg',
+  },
+  {
+    name: 'dirtAo',
+    type: 'texture',
+    path: '/textures/DirtTexture/AO.jpg',
+  },
+  {
+    name: 'dirtBump',
+    type: 'texture',
+    path: '/textures/DirtTexture/BUMP.jpg',
+  },
+  {
+    name: 'dirtDisp',
+    type: 'texture',
+    path: '/textures/DirtTexture/DISP.jpg',
+  },
+  {
+    name: 'dirtFlat',
+    type: 'texture',
+    path: '/textures/DirtTexture/FLAT.jpg',
+  },
+  {
+    name: 'dirtGloss',
+    type: 'texture',
+    path: '/textures/DirtTexture/GLOSS.jpg',
+  },
+  {
+    name: 'dirtNormal',
+    type: 'texture',
+    path: '/textures/DirtTexture/NORMAL.jpg',
   },
 ];

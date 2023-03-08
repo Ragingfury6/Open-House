@@ -34,11 +34,17 @@ export default class Resources extends EventEmitter {
         });
       } else if (asset.type === 'texture') {
         this.loaders.TextureLoader.load(asset.path, (file) => {
-          console.log(file.wrapT);
           // file.magFilter = THREE.NearestFilter;
           // file.minFilter = THREE.LinearFilter;
           file.wrapS = file.wrapT = THREE.RepeatWrapping;
-          file.repeat.set(12, 12);
+          // file.repeat.set(12, 12);
+          if (asset.name.includes('metal')) {
+            file.repeat.set(4, 4);
+          } else if (asset.name.includes('dirt')) {
+            file.repeat.set(32, 16);
+          } else {
+            file.repeat.set(48, 48);
+          }
           this.singleAssetLoaded(asset, file);
         });
       }
