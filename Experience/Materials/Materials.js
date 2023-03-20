@@ -65,14 +65,14 @@ export default class Materials {
       normalMap: this.textures.asphalt.normal,
       clearcoatRoughnessMap: this.textures.asphalt.gloss,
       aoMap: this.textures.asphalt.ao,
-      displacementMap: this.textures.asphalt.disp,
-      displacementScale: 0.01,
+      // displacementMap: this.textures.asphalt.disp,
+      // displacementScale: 0.01,
       color: '#111',
     });
     this.glassMaterial = new THREE.MeshPhysicalMaterial({
       roughness: 0.2,
       color: 0xffffff,
-      ior: 3,
+      ior: 2,
       transmission: 1,
       opacity: 0.75,
     });

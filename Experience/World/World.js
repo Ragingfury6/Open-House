@@ -24,14 +24,14 @@ export default class World {
       this.environment = new Environment();
       this.materials = new Materials();
       this.room = new Room();
-      this.marker = new Marker();
       this.controls = new Controls();
-      this.raycaster = new Raycaster();
       this.b1f1 = new B1F1();
       this.b1f2 = new B1F2();
       this.auto = new Auto();
       this.vet = new Vet();
       this.autoCollision = new AutoCollision();
+      this.marker = new Marker();
+      this.raycaster = new Raycaster();
     });
   }
 

@@ -12,8 +12,11 @@ export default class AutoCollision {
     this.materials = this.experience.world.materials;
     // this.gui = new GUI();
     this.obj = { x: -46.06, y: -1.37, z: 32 };
-    this.roomScene.children.find((c) => c.name === 'glass001').material =
+    console.log(this.roomScene);
+    this.roomScene.children.find((c) => c.name === 'glass003').material =
       this.materials.glassMaterial;
+    this.roomScene.children.find((c) => c.name === 'walls004').material =
+      this.materials.wallsMaterial;
     // this.gui
     //   .add(this.obj, 'x', -100, 100, 0.01)
     //   .onChange(() =>

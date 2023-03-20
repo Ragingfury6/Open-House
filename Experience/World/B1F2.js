@@ -22,6 +22,7 @@ export default class B1F2 {
       y: 0,
       z: 0,
     };
+    console.log(this.roomScene);
     this.roomScene.position.copy(this.guiObject);
     this.roomScene.children.find((c) => c.name === 'walls003').material =
       this.materials.wallsMaterial;

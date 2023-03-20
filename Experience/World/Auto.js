@@ -11,7 +11,7 @@ export default class Auto {
     this.roomScene = this.room.scene;
     this.materials = this.experience.world.materials;
     console.log(this.roomScene);
-    this.roomScene.children.find((c) => c.name === 'glass').material =
+    this.roomScene.children.find((c) => c.name === 'glass004').material =
       this.materials.glassMaterial;
     // this.gui = new GUI();
     // this.obj = { x: 0, y: 0, z: 0 };

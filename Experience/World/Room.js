@@ -23,14 +23,14 @@ export default class Room {
           child.castShadow = true;
           child.receiveShadow = true;
         }
-        if (child.name === 'parking' || child.name === 'parking1') {
+        if (child.name === 'parking') {
           console.log(child);
           // child.geometry.attributes.uv2 = new THREE.BufferAttribute(
           //   child.geometry.attributes.uv.array,
           //   2
           // );
-
           child.material = this.materials.asphaltMaterial;
+          // child.material.color = new THREE.Color('#fff');
         }
         if (child.name === 'gravel') {
           child.material = this.materials.dirtMaterial;

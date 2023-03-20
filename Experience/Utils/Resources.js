@@ -14,6 +14,7 @@ export default class Resources extends EventEmitter {
     this.items = {};
     this.queue = this.assets.length;
     this.loaded = 0;
+    this.loadingElement = document.querySelector('.loader__wrapper__items');
 
     this.setLoaders();
     this.load();
@@ -53,9 +54,11 @@ export default class Resources extends EventEmitter {
   singleAssetLoaded(asset, file) {
     this.items[asset.name] = file;
     this.loaded++;
+    this.loadingElement.textContent = `Loaded Resource ${this.loaded} / ${this.queue}`;
     // console.log(file);
     if (this.loaded === this.queue) {
       this.emit('ready');
+      this.loadingElement.parentElement.style.display = 'none';
     }
   }
 }

@@ -1,13 +1,14 @@
 import Experience from '../Experience';
 import * as THREE from 'three';
+import GUI from 'lil-gui';
 export default class Room {
   constructor() {
     this.experience = new Experience();
     this.scene = this.experience.scene;
     this.resources = this.experience.resources;
     this.setSunlight();
-    this.setB1F2PointLights();
-    this.setB1F1PointLights();
+    // this.setB1F2PointLights();
+    // this.setB1F1PointLights();
   }
   setSunlight() {
     this.sunLight = new THREE.DirectionalLight('#fff', 3);
@@ -23,7 +24,12 @@ export default class Room {
   }
 
   setB1F2PointLights() {
-    const p1 = new THREE.PointLight('#0f0', 0.25);
+    const gui = new GUI();
+    const guiObj = { x: -6.5, y: 1, z: -2 };
+    gui.add(guiObj, 'x', -20, 20, 0.01).onChange((v) => (p1.position.x = v));
+    gui.add(guiObj, 'y', -20, 20, 0.01).onChange((v) => (p1.position.y = v));
+    gui.add(guiObj, 'y', -20, 20, 0.01).onChange((v) => (p1.position.z = v));
+    const p1 = new THREE.PointLight('#0f0', 5.25);
     p1.position.copy(new THREE.Vector3(-6.5, 1, -2));
     this.scene.add(p1);
   }

@@ -28,7 +28,9 @@ export default class Vet {
     //   );
     // this.roomScene.position.set(this.obj.x, this.obj.y, this.obj.z);
     // this.roomScene.scale.set(3, 3, 3);
-
+    this.roomScene.children.find((c) => c.name === 'glass001').material =
+      this.materials.glassMaterial;
+    console.log(this.roomScene);
     this.setModel();
   }
   setModel() {

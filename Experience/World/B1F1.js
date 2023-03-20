@@ -29,6 +29,7 @@ export default class B1F1 {
     //   .onChange(() =>
     //     this.roomScene.position.set(this.obj.x, this.obj.y, this.obj.z)
     //   );
+    console.log(this.roomScene);
     this.roomScene.position.set(this.obj.x, this.obj.y, this.obj.z);
     this.roomScene.scale.set(1, 1, 1);
     this.roomScene.children.find((c) => c.name === 'walls001').material =
