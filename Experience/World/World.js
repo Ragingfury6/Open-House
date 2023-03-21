@@ -40,6 +40,7 @@ export default class World {
   update() {
     if (this.controls) {
       this.controls.update();
+      this.marker.update();
     }
   }
 }

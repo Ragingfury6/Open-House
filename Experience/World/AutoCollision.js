@@ -17,6 +17,8 @@ export default class AutoCollision {
       this.materials.glassMaterial;
     this.roomScene.children.find((c) => c.name === 'walls004').material =
       this.materials.wallsMaterial;
+    this.roomScene.children.find((c) => c.name === 'floor004').material =
+      this.materials.floorMaterial;
     // this.gui
     //   .add(this.obj, 'x', -100, 100, 0.01)
     //   .onChange(() =>
@@ -40,9 +42,17 @@ export default class AutoCollision {
     // this.roomScene.children.find((c) => c.name === 'FLOOR').material =
     //   floorMaterial;
     this.setModel();
+    // this.toggleEmissiveArea(true);
   }
   setModel() {
     this.scene.add(this.roomScene);
+  }
+  toggleEmissiveArea(type) {
+    const highlight = this.roomScene.children.find(
+      (c) => c.name === 'autocollison'
+    );
+    highlight.material = highlight.material.clone();
+    highlight.material.emissive = new THREE.Color(0, type ? 5 : 0, 0);
   }
 
   resize() {}

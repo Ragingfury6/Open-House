@@ -30,13 +30,16 @@ export default class Vet {
     // this.roomScene.scale.set(3, 3, 3);
     this.roomScene.children.find((c) => c.name === 'glass001').material =
       this.materials.glassMaterial;
+    this.roomScene.children.find((c) => c.name === 'walls').material =
+      this.materials.wallsMaterial;
+    this.roomScene.children.find((c) => c.name === 'floor').material =
+      this.materials.floorMaterial;
     console.log(this.roomScene);
     this.setModel();
   }
   setModel() {
     this.scene.add(this.roomScene);
   }
-
   resize() {}
 
   update() {}

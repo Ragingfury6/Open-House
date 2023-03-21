@@ -9,7 +9,7 @@ export default class Camera {
     this.canvas = this.experience.canvas;
 
     this.createPerspectiveCamera();
-    this.createOrthographicCamera();
+    // this.createOrthographicCamera();
     this.setOrbitControls();
   }
   createPerspectiveCamera() {
@@ -34,12 +34,29 @@ export default class Camera {
       -100,
       100
     );
-    this.scene.add(this.perspectiveCamera);
+    this.scene.add(this.orthographicCamera);
   }
 
   setOrbitControls() {
     this.controls = new OrbitControls(this.perspectiveCamera, this.canvas);
     this.controls.enableDamping = true;
+    this.controls.minPolarAngle = Math.PI / 8;
+    this.controls.maxPolarAngle = Math.PI / 2.5;
+    this.controls.minDistance = 3;
+    this.controls.maxDistance = 25;
+  }
+
+  toggleControlRestrictions(type) {
+    if (type === true) {
+      this.controls.minPolarAngle = Math.PI / 8;
+      this.controls.minDistance = 3;
+      this.controls.maxDistance = 25;
+    } else {
+      this.controls.minPolarAngle = 0;
+      this.controls.maxPolarAngle = Math.PI * 2;
+      this.controls.minDistance = 0;
+      this.controls.maxDistance = Infinity;
+    }
   }
 
   resize() {

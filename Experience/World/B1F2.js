@@ -11,12 +11,6 @@ export default class B1F2 {
     this.roomScene = this.room.scene;
     this.materials = this.experience.world.materials;
 
-    // this.gui = new GUI();
-    // this.guiObject = {
-    //   x: -15.83,
-    //   y: 0,
-    //   z: 52.28,
-    // };
     this.guiObject = {
       x: 0,
       y: 0,
@@ -28,21 +22,18 @@ export default class B1F2 {
       this.materials.wallsMaterial;
     this.roomScene.children.find((c) => c.name === 'floor002').material =
       this.materials.floorMaterial;
-    // this.gui.add(this.guiObject, 'x', -100, 100, 0.01).onChange((v) => {
-    //   console.log(this.roomScene);
-    //   this.roomScene.position.x = v;
-    // });
-    // this.gui.add(this.guiObject, 'y', -100, 100, 0.01).onChange((v) => {
-    //   this.roomScene.position.y = v;
-    // });
-    // this.gui.add(this.guiObject, 'z', -100, 100, 0.01).onChange((v) => {
-    //   this.roomScene.position.z = v;
-    // });
     this.roomScene.scale.set(1, 1, 1);
     this.setModel();
+    // this.toggleEmissiveArea(true);
   }
   setModel() {
     this.scene.add(this.roomScene);
+  }
+
+  toggleEmissiveArea(type) {
+    const highlight = this.roomScene.children.find((c) => c.name === 'coding');
+    highlight.material = highlight.material.clone();
+    highlight.material.emissive = new THREE.Color(0, type ? 5 : 0, 0);
   }
 
   resize() {}

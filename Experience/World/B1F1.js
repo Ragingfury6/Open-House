@@ -34,12 +34,25 @@ export default class B1F1 {
     this.roomScene.scale.set(1, 1, 1);
     this.roomScene.children.find((c) => c.name === 'walls001').material =
       this.materials.wallsMaterial;
+
     this.roomScene.children.find((c) => c.name === 'FLOOR').material =
       this.materials.floorMaterial;
     this.setModel();
+    // this.toggleEmissiveArea(true);
   }
   setModel() {
     this.scene.add(this.roomScene);
+  }
+
+  toggleEmissiveArea(type) {
+    const highlight = this.roomScene.children.find(
+      (c) => c.name === 'construction'
+    );
+    highlight.material = highlight.material.clone();
+    highlight.material.emissive = new THREE.Color(0, type ? 5 : 0, 0);
+    // highlight.material.toneMapped = false;
+    // highlight.material.emissive = new THREE.Color(0.2, 1, 0.2);
+    // highlight.material.emissiveIntensity = 4;
   }
 
   resize() {}

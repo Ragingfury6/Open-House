@@ -6,6 +6,7 @@ export default class Marker {
     this.experience = new Experience();
     this.scene = this.experience.scene;
     this.world = this.experience.world;
+    this.sizes = this.experience.sizes;
     this.resources = this.experience.resources;
     this.marker = this.resources.items.marker;
     this.markerScene = this.marker.scene;
@@ -16,8 +17,9 @@ export default class Marker {
         toPosition: Curves.CenterToCoding,
         fromPosition: Curves.CodingToCenter,
         buildingCeiling: this.world.b1f2.roomScene.children.find(
-          (c) => c.name === 'floor005'
+          (c) => c.name === 'ceiling'
         ),
+        building: this.world.b1f2,
       },
       {
         name: 'Vet',
@@ -27,6 +29,7 @@ export default class Marker {
         buildingCeiling: this.world.vet.roomScene.children.find(
           (c) => c.name === 'ceiling'
         ),
+        building: this.world.vet,
       },
       {
         name: 'HVAC',
@@ -36,6 +39,7 @@ export default class Marker {
         buildingCeiling: this.world.b1f1.roomScene.children.find(
           (c) => c.name === 'ceiling003'
         ),
+        building: this.world.b1f1,
       },
       {
         name: 'Auto',
@@ -45,6 +49,7 @@ export default class Marker {
         buildingCeiling: this.world.autoCollision.roomScene.children.find(
           (c) => c.name === 'ceiling002'
         ),
+        building: this.world.autoCollision,
       },
       {
         name: 'AutoCollision',
@@ -54,6 +59,7 @@ export default class Marker {
         buildingCeiling: this.world.auto.roomScene.children.find(
           (c) => c.name === 'ceiling001'
         ),
+        building: this.world.auto,
       },
     ];
     this.positionMaps[0].originalScale = {
@@ -127,5 +133,18 @@ export default class Marker {
 
   resize() {}
 
-  update() {}
+  update() {
+    this.positionMaps.forEach((point, idx) => {
+      const screenPositionVector = point.position.clone();
+      screenPositionVector.y += 1.1;
+      const camera = this.experience.camera.perspectiveCamera;
+      screenPositionVector.project(camera);
+      const tX = screenPositionVector.x * this.sizes.width * 0.5;
+      const tY = -screenPositionVector.y * this.sizes.height * 0.5;
+      const ele = document.querySelector(`.p${idx + 1}`);
+      ele.style.transform = `translateX(${
+        tX - ele.textContent.length * 7
+      }px) translateY(${tY}px) `;
+    });
+  }
 }

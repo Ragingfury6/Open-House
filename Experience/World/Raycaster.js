@@ -26,6 +26,7 @@ export default class Raycaster {
     if (marker) {
       if (this.lastMarker === null) {
         this.lastMarker = marker;
+        marker.building.toggleEmissiveArea(true);
         gsap.to(marker.buildingCeiling.position, {
           y: 1,
           duration: 1.5,
@@ -41,6 +42,7 @@ export default class Raycaster {
       }
     } else {
       if (this.lastMarker) {
+        this.lastMarker.building.toggleEmissiveArea(false);
         gsap.to(this.lastMarker.buildingCeiling.position, {
           y: this.lastMarker.originalScale.height,
           duration: 1.5,

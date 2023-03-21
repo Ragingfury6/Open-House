@@ -93,7 +93,10 @@ export default class Controls {
     this.curveObject = new THREE.Line(this.geometry, this.material);
     this.progress = 0;
     this.animationEnabled = true;
-    // this.scene.add(this.curveObject);
+
+    document.querySelector('.points__wrapper').style.opacity = 0;
+    this.camera.toggleControlRestrictions(false);
+    // Highlight Emissive Floor
   }
   update() {
     if (this.progress < 1 && this.animationEnabled) {
