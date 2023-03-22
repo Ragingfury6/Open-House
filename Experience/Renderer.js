@@ -1,5 +1,6 @@
 import Experience from './Experience';
 import * as THREE from 'three';
+import { RenderPass } from 'three/examples/jsm/postprocessing/';
 export default class Camera {
   constructor() {
     this.experience = new Experience();
@@ -24,7 +25,7 @@ export default class Camera {
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     this.renderer.setSize(this.sizes.width, this.sizes.height);
     this.renderer.setPixelRatio(this.sizes.pixelRatio);
-    this.renderer.setClearColor('#FFFFF0', 1);
+    this.renderer.setClearColor('#e0f3fa', 1);
   }
 
   resize() {
