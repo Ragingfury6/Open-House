@@ -1,8 +1,10 @@
 import * as THREE from 'three';
 import GUI from 'lil-gui';
 import Experience from '../Experience';
-import { Curve, Vector3 } from 'three';
+import { CatmullRomCurve3, Curve, Vector3 } from 'three';
 import Curves from '../Utils/Curves';
+import gsap from 'gsap';
+import { Power4 } from 'gsap/src/all';
 export default class Controls {
   constructor() {
     this.experience = new Experience();
@@ -14,6 +16,7 @@ export default class Controls {
     this.progress = 0;
     this.dummyVector = new THREE.Vector3();
     this.lookAtPosition = new THREE.Vector3();
+    this.tempLookAt = new THREE.Vector3();
     // this.gui = new GUI();
 
     this.animationEnabled = false;
@@ -86,16 +89,34 @@ export default class Controls {
     //   const { a, b, c } = this[`v${i}`];
     //   curveArray.unshift(new THREE.Vector3(a, b, c));
     // }
-    this.curve = toPosition;
-    this.points = this.curve.getPoints(100);
-    this.geometry = new THREE.BufferGeometry().setFromPoints(this.points);
-    this.material = new THREE.LineBasicMaterial({ color: 0xff0000 });
-    this.curveObject = new THREE.Line(this.geometry, this.material);
-    this.progress = 0;
-    this.animationEnabled = true;
 
-    document.querySelector('.points__wrapper').style.opacity = 0;
-    this.camera.toggleControlRestrictions(false);
+    gsap.to(this.camera.perspectiveCamera.position, {
+      x: toPosition[0].x,
+      y: toPosition[0].y,
+      z: toPosition[0].z,
+      duration: 2,
+      onComplete: () => {
+        this.curve = new CatmullRomCurve3(toPosition);
+        // console.log(this.camera.controls.target);
+        // this.lookCurve = new CatmullRomCurve3([
+        //   this.camera.controls.target,
+        //   ...toPosition,
+        // ]);
+        // console.log(this.lookCurve);
+        this.points = this.curve.getPoints(100);
+        this.geometry = new THREE.BufferGeometry().setFromPoints(this.points);
+        this.material = new THREE.LineBasicMaterial({ color: 0xff0000 });
+        this.curveObject = new THREE.Line(this.geometry, this.material);
+        this.progress = 0;
+        this.animationEnabled = true;
+
+        document.querySelector('.points__wrapper').style.opacity = 0;
+        this.camera.toggleControlRestrictions(false);
+      },
+    });
+
+    // });
+
     // Highlight Emissive Floor
   }
   update() {
@@ -104,7 +125,7 @@ export default class Controls {
       // this.lookCurve.getPointAt(this.progress, this.lookAtPosition);
       // if (this.progress + 0.00001 < 1) {
       this.curve.getPointAt(
-        Math.min(this.progress + 0.00001, 1),
+        Math.min(this.progress + 0.01, 1),
         this.lookAtPosition
       );
       // }

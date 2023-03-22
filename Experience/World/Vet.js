@@ -40,6 +40,7 @@ export default class Vet {
   setModel() {
     this.scene.add(this.roomScene);
   }
+  toggleEmissiveArea(type) {}
   resize() {}
 
   update() {}
