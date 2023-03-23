@@ -1,6 +1,8 @@
 import EventEmitter from 'events';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
+import { EXRLoader } from 'three/examples/jsm/loaders/EXRLoader';
+
 import * as THREE from 'three';
 import Experience from '../Experience';
 export default class Resources extends EventEmitter {
@@ -24,6 +26,7 @@ export default class Resources extends EventEmitter {
     this.loaders.GLTFLoader = new GLTFLoader();
     this.loaders.DRACOLoader = new DRACOLoader();
     this.loaders.TextureLoader = new THREE.TextureLoader();
+    this.loaders.EXRLoader = new EXRLoader();
     this.loaders.DRACOLoader.setDecoderPath('/draco/');
     this.loaders.GLTFLoader.setDRACOLoader(this.loaders.DRACOLoader);
   }
@@ -46,6 +49,12 @@ export default class Resources extends EventEmitter {
           } else {
             file.repeat.set(48, 48);
           }
+          this.singleAssetLoaded(asset, file);
+        });
+      } else if (asset.type === 'hdri') {
+        this.loaders.EXRLoader.load(asset.path, (file) => {
+          file.mapping = THREE.EquirectangularReflectionMapping;
+
           this.singleAssetLoaded(asset, file);
         });
       }

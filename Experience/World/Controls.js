@@ -28,9 +28,15 @@ export default class Controls {
         const folder = this.gui.addFolder(`v${this.pointIndex}`);
         const obj = { a: 0, b: 0, c: 0 };
         this[`v${this.pointIndex}`] = obj;
-        folder.add(obj, 'a', -50, 50, 0.01).onChange(() => this.updateCurve());
-        folder.add(obj, 'b', -50, 50, 0.01).onChange(() => this.updateCurve());
-        folder.add(obj, 'c', -50, 50, 0.01).onChange(() => this.updateCurve());
+        folder
+          .add(obj, 'a', -50, 50, 0.01)
+          .onChange(() => this.tempUpdateCurve());
+        folder
+          .add(obj, 'b', -50, 50, 0.01)
+          .onChange(() => this.tempUpdateCurve());
+        folder
+          .add(obj, 'c', -50, 50, 0.01)
+          .onChange(() => this.tempUpdateCurve());
         // this.guiObj[`v${this.pointIndex}a`] = 0;
         // this.guiObj[`v${this.pointIndex}b`] = 0;
         // this.guiObj[`v${this.pointIndex}c`] = 0;
@@ -39,7 +45,7 @@ export default class Controls {
         // this.gui.add(this.guiObj, `v${this.pointIndex}b`, -50, 50, 0.01);
         // this.gui.add(this.guiObj, `v${this.pointIndex}c`, -50, 50, 0.01);
         this.pointIndex++;
-        this.updateCurve();
+        this.tempUpdateCurve();
       },
       moveToVet: () => {
         this.setPath(Curves.CenterToVet, Curves.CenterToVetLook);
@@ -68,21 +74,49 @@ export default class Controls {
     // this.gui.add(this.guiObj, 'moveFromVet');
     // this.gui.add(this.guiObj, 'moveToCoding');
     // this.gui.add(this.guiObj, 'moveFromCoding');
-    // const arr = [new Vector3(0, 8, 13.78), new Vector3(-0.41, 0.33, 1.43)];
+    // const arr = [
+    //   new Vector3(0, 8, 13.78),
+    //   new Vector3(-7.09, 0.21, -0.03),
+    //   new Vector3(-6.57, 0.21, -0.62),
+    //   new Vector3(-6.52, 0.21, -0.88),
+    //   new Vector3(-6.11, 0.21, -0.93),
+    //   new Vector3(-6.02, 0.21, -1.92),
+    // ];
     // arr.forEach(({ x, y, z }) => {
     //   const obj = { a: x, b: y, c: z };
     //   this[`v${this.pointIndex}`] = obj;
     //   const folder = this.gui.addFolder(`v${this.pointIndex}`);
-    //   folder.add(obj, 'a', -50, 50, 0.01).onChange(() => this.updateCurve());
-    //   folder.add(obj, 'b', -50, 50, 0.01).onChange(() => this.updateCurve());
-    //   folder.add(obj, 'c', -50, 50, 0.01).onChange(() => this.updateCurve());
+    //   folder
+    //     .add(obj, 'a', -50, 50, 0.01)
+    //     .onChange(() => this.tempUpdateCurve());
+    //   folder
+    //     .add(obj, 'b', -50, 50, 0.01)
+    //     .onChange(() => this.tempUpdateCurve());
+    //   folder
+    //     .add(obj, 'c', -50, 50, 0.01)
+    //     .onChange(() => this.tempUpdateCurve());
     //   this.pointIndex++;
     // });
-    // this.updateCurve();
+    // this.tempUpdateCurve();
     // this.setPath();
   }
 
-  updateCurve(toPosition) {
+  tempUpdateCurve() {
+    if (this.curveObject) this.scene.remove(this.curveObject);
+    const curveArray = [];
+    for (let i = this.pointIndex - 1; i >= 0; i--) {
+      const { a, b, c } = this[`v${i}`];
+      curveArray.unshift(new THREE.Vector3(a, b, c));
+    }
+    this.curve = new CatmullRomCurve3(curveArray);
+    this.points = this.curve.getPoints(100);
+    this.geometry = new THREE.BufferGeometry().setFromPoints(this.points);
+    this.material = new THREE.LineBasicMaterial({ color: 0xff0000 });
+    this.curveObject = new THREE.Line(this.geometry, this.material);
+    // this.scene.add(this.curveObject);
+  }
+
+  updateCurve(toPosition, slowDownTime) {
     if (this.curveObject) this.scene.remove(this.curveObject);
     // const curveArray = [];
     // for (let i = this.pointIndex - 1; i >= 0; i--) {
@@ -97,12 +131,7 @@ export default class Controls {
       duration: 2,
       onComplete: () => {
         this.curve = new CatmullRomCurve3(toPosition);
-        // console.log(this.camera.controls.target);
-        // this.lookCurve = new CatmullRomCurve3([
-        //   this.camera.controls.target,
-        //   ...toPosition,
-        // ]);
-        // console.log(this.lookCurve);
+        this.slowDownTime = slowDownTime;
         this.points = this.curve.getPoints(100);
         this.geometry = new THREE.BufferGeometry().setFromPoints(this.points);
         this.material = new THREE.LineBasicMaterial({ color: 0xff0000 });
@@ -110,7 +139,7 @@ export default class Controls {
         this.progress = 0;
         this.animationEnabled = true;
 
-        document.querySelector('.points__wrapper').style.opacity = 0;
+        // document.querySelector('.points__wrapper').style.opacity = 0;
         this.camera.toggleControlRestrictions(false);
       },
     });
@@ -129,7 +158,7 @@ export default class Controls {
         this.lookAtPosition
       );
       // }
-      if (this.progress < 0.8) {
+      if (this.progress < this.slowDownTime) {
         this.progress += 0.002;
       } else {
         this.progress += 0.00025;

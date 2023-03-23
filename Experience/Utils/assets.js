@@ -146,4 +146,9 @@ export default [
     type: 'texture',
     path: '/textures/DirtTexture/NORMAL.jpg',
   },
+  {
+    name: 'sky',
+    type: 'hdri',
+    path: '/models/sky.exr',
+  },
 ];

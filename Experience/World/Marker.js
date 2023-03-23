@@ -1,5 +1,7 @@
 import Experience from '../Experience';
 import * as THREE from 'three';
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
+import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 import Curves from '../Utils/Curves';
 export default class Marker {
   constructor() {
@@ -20,6 +22,7 @@ export default class Marker {
           (c) => c.name === 'ceiling'
         ),
         building: this.world.b1f2,
+        slowDownTime: 0.8,
       },
       {
         name: 'Vet',
@@ -30,19 +33,21 @@ export default class Marker {
           (c) => c.name === 'ceiling'
         ),
         building: this.world.vet,
+        slowDownTime: 0.8,
       },
       {
         name: 'HVAC',
-        position: new THREE.Vector3(-3.5, 1, -1.25),
+        position: new THREE.Vector3(-1, 1, -1.25),
         toPosition: Curves.CenterToHVAC,
         fromPosition: Curves.HVACToCenter,
         buildingCeiling: this.world.b1f1.roomScene.children.find(
           (c) => c.name === 'ceiling003'
         ),
         building: this.world.b1f1,
+        slowDownTime: 0.65,
       },
       {
-        name: 'Auto',
+        name: 'Auto Collision',
         position: new THREE.Vector3(3, 1, 0),
         toPosition: Curves.CenterToAuto,
         fromPosition: Curves.AutoToCenter,
@@ -50,9 +55,10 @@ export default class Marker {
           (c) => c.name === 'ceiling002'
         ),
         building: this.world.autoCollision,
+        slowDownTime: 0.85,
       },
       {
-        name: 'AutoCollision',
+        name: 'Auto',
         position: new THREE.Vector3(3.5, 1, -3),
         toPosition: Curves.CenterToAutoCollision,
         fromPosition: Curves.AutoCollisionToCenter,
@@ -60,6 +66,49 @@ export default class Marker {
           (c) => c.name === 'ceiling001'
         ),
         building: this.world.auto,
+        slowDownTime: 0.85,
+      },
+      {
+        name: 'Construction',
+        position: new THREE.Vector3(-2.5, 1, -1.25),
+        toPosition: Curves.CenterToConstruction,
+        fromPosition: Curves.CenterToConstruction,
+        buildingCeiling: this.world.b1f1.roomScene.children.find(
+          (c) => c.name === 'ceiling003'
+        ),
+        building: this.world.b1f1,
+        slowDownTime: 0.7,
+      },
+      {
+        name: 'Electrical',
+        position: new THREE.Vector3(-4.3, 1, -1.25),
+        toPosition: Curves.CenterToElectrical,
+        fromPosition: Curves.CenterToElectrical,
+        buildingCeiling: this.world.b1f1.roomScene.children.find(
+          (c) => c.name === 'ceiling003'
+        ),
+        building: this.world.b1f1,
+        slowDownTime: 0.8,
+      },
+      {
+        name: 'Diesel',
+        position: new THREE.Vector3(-3.3, 1, 0),
+        toPosition: Curves.CenterToDiesel,
+        fromPosition: Curves.CenterToDiesel,
+        buildingCeiling: this.world.b1f1.roomScene.children.find(
+          (c) => c.name === 'ceiling003'
+        ),
+        building: this.world.b1f1,
+        slowDownTime: 0.8,
+      },
+      {
+        name: 'Pharmacy',
+        position: new THREE.Vector3(-6.5, 1.5, -1.75),
+        toPosition: Curves.CenterToPharmacy,
+        fromPosition: Curves.CenterToPharmacy,
+        buildingCeiling: this.world.b1f2.roomScene,
+        building: this.world.b1f2,
+        slowDownTime: 0.85,
       },
     ];
     this.positionMaps[0].originalScale = {
@@ -92,6 +141,15 @@ export default class Marker {
       z: 0.9756215214729309,
       height: 0.4229370951652527,
     };
+    this.positionMaps[5].originalScale = this.positionMaps[2].originalScale;
+    this.positionMaps[6].originalScale = this.positionMaps[2].originalScale;
+    this.positionMaps[7].originalScale = this.positionMaps[2].originalScale;
+    this.positionMaps[8].originalScale = {
+      x: 1,
+      y: 1,
+      z: 1,
+      height: 0,
+    };
 
     this.setModel();
   }
@@ -112,6 +170,23 @@ export default class Marker {
       this.positionMaps.find((m) => m.name === 'HVAC').position
     );
 
+    this.constructionMarker = this.markerScene.clone();
+    this.constructionMarker.children[0].position.copy(
+      this.positionMaps.find((m) => m.name === 'Construction').position
+    );
+    this.electricalMarker = this.markerScene.clone();
+    this.electricalMarker.children[0].position.copy(
+      this.positionMaps.find((m) => m.name === 'Electrical').position
+    );
+    this.dieselMarker = this.markerScene.clone();
+    this.dieselMarker.children[0].position.copy(
+      this.positionMaps.find((m) => m.name === 'Diesel').position
+    );
+    this.pharmacyMarker = this.markerScene.clone();
+    this.pharmacyMarker.children[0].position.copy(
+      this.positionMaps.find((m) => m.name === 'Pharmacy').position
+    );
+
     this.autoMarker = this.markerScene.clone();
     this.autoMarker.children[0].position.copy(
       this.positionMaps.find((m) => m.name === 'Auto').position
@@ -119,7 +194,7 @@ export default class Marker {
 
     this.unknownBuildingMarker = this.markerScene.clone();
     this.unknownBuildingMarker.children[0].position.copy(
-      this.positionMaps.find((m) => m.name === 'AutoCollision').position
+      this.positionMaps.find((m) => m.name === 'Auto Collision').position
     );
 
     this.scene.add(
@@ -127,8 +202,61 @@ export default class Marker {
       this.vetMarker,
       this.hvacMarker,
       this.autoMarker,
-      this.unknownBuildingMarker
+      this.unknownBuildingMarker,
+      this.constructionMarker,
+      this.electricalMarker,
+      this.dieselMarker,
+      this.pharmacyMarker
     );
+    this.createText();
+  }
+
+  createText() {
+    const loader = new FontLoader();
+    loader.load('/fonts/helvetiker_regular.typeface.json', (font) => {
+      this.positionMaps.forEach((point) => {
+        const geometry = new TextGeometry(point.name, {
+          font: font,
+          size: [
+            'Construction',
+            'HVAC',
+            'Electrical',
+            'Diesel',
+            'Pharmacy',
+          ].includes(point.name)
+            ? 55
+            : 85,
+          height: 5,
+          curveSegments: 12,
+          bevelEnabled: true,
+          bevelThickness: 10,
+          bevelSize: 8,
+          bevelOffset: 0,
+          bevelSegments: 5,
+        });
+        const material = new THREE.MeshPhongMaterial({
+          color: '#f71616',
+          specular: '#abc345',
+          shininess: 25,
+          flatShading: false,
+          reflectivity: 1,
+        });
+        const text = new THREE.Mesh(geometry, material);
+        text.scale.set(0.003, 0.003, 0.003);
+        text.geometry.computeBoundingSphere();
+        text.position.set(
+          point.position.x - text.geometry.boundingSphere.radius / 333.33,
+          point.position.y + 0.5,
+          point.position.z
+        );
+        if (point.name === 'Vet') {
+          text.rotation.y = -Math.PI / 2;
+          text.position.x = point.position.x;
+          text.position.z = point.position.z - point.name.length / 12;
+        }
+        this.scene.add(text);
+      });
+    });
   }
 
   resize() {}

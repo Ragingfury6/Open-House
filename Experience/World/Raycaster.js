@@ -39,6 +39,30 @@ export default class Raycaster {
           duration: 1.5,
           ease: Power4.easeOut,
         });
+        if (marker.name === 'Pharmacy') {
+          gsap.to(
+            this.world.b1f1.roomScene.children.find(
+              (c) => c.name === 'ceiling003'
+            ).position,
+            {
+              y: 1,
+              duration: 1.5,
+              ease: Power4.easeOut,
+            }
+          );
+          gsap.to(
+            this.world.b1f1.roomScene.children.find(
+              (c) => c.name === 'ceiling003'
+            ).scale,
+            {
+              x: 0,
+              y: 0,
+              z: 0,
+              duration: 1.5,
+              ease: Power4.easeOut,
+            }
+          );
+        }
       }
     } else {
       if (this.lastMarker) {
@@ -55,6 +79,30 @@ export default class Raycaster {
           duration: 1.5,
           ease: Power4.easeOut,
         });
+        if (this.lastMarker.name === 'Pharmacy') {
+          gsap.to(
+            this.world.b1f1.roomScene.children.find(
+              (c) => c.name === 'ceiling003'
+            ).position,
+            {
+              y: 0.34290650486946106,
+              duration: 1.5,
+              ease: Power4.easeOut,
+            }
+          );
+          gsap.to(
+            this.world.b1f1.roomScene.children.find(
+              (c) => c.name === 'ceiling003'
+            ).scale,
+            {
+              x: 0.7169927358627319,
+              y: 0.7658734321594238,
+              z: 0.7211077809333801,
+              duration: 1.5,
+              ease: Power4.easeOut,
+            }
+          );
+        }
       }
       this.lastMarker = null;
     }
@@ -62,7 +110,7 @@ export default class Raycaster {
   onMouseDown() {
     const marker = this.locateMarker();
     if (marker) {
-      this.controls.updateCurve(marker.toPosition);
+      this.controls.updateCurve(marker.toPosition, marker.slowDownTime);
     }
   }
   locateMarker() {

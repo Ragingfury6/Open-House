@@ -22,6 +22,7 @@ export default class World {
     this.resources = this.experience.resources;
     this.resources.on('ready', () => {
       this.environment = new Environment();
+      // this.scene.background = this.resources.items.sky;
       this.materials = new Materials();
       this.room = new Room();
       this.controls = new Controls();
@@ -40,7 +41,7 @@ export default class World {
   update() {
     if (this.controls) {
       this.controls.update();
-      this.marker.update();
+      // this.marker.update();
     }
   }
 }

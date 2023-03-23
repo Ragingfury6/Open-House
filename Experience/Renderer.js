@@ -1,6 +1,5 @@
 import Experience from './Experience';
 import * as THREE from 'three';
-import { RenderPass } from 'three/examples/jsm/postprocessing/';
 export default class Camera {
   constructor() {
     this.experience = new Experience();

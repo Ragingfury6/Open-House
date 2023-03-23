@@ -24,8 +24,10 @@ export default class Curves {
     new Vector3(-6.52, 0.21, -0.88),
     new Vector3(-5.63, 0.21, -0.87),
     new Vector3(-5.43, 0.21, -0.75),
-    new Vector3(-3.14, 0.21, -0.65),
-    new Vector3(-3.13, 0.21, -0.96),
+    new Vector3(-3.14, 0.21, -0.53),
+    new Vector3(-1.8, 0.21, -0.45),
+    new Vector3(-1.82, 0.21, -1.25),
+    new Vector3(-1.35, 0.21, -1.33),
   ];
   static HVACToCenter = [
     new Vector3(-3.13, 0.21, -0.96),
@@ -37,11 +39,54 @@ export default class Curves {
     new Vector3(-7.09, 0.21, -0.03),
     new Vector3(0, 8, 13.78),
   ];
+  static CenterToConstruction = [
+    new Vector3(0, 8, 13.78),
+    new Vector3(-7.09, 0.21, -0.03),
+    new Vector3(-6.57, 0.21, -0.62),
+    new Vector3(-6.52, 0.21, -0.88),
+    new Vector3(-5.63, 0.21, -0.87),
+    new Vector3(-5.43, 0.21, -0.75),
+    new Vector3(-3.14, 0.21, -0.53),
+    new Vector3(-2.03, 0.21, -0.45),
+    new Vector3(-2.09, 0.21, -1.01),
+    new Vector3(-2.26, 0.21, -1.23),
+  ];
+  static CenterToElectrical = [
+    new Vector3(0, 8, 13.78),
+    new Vector3(-7.09, 0.21, -0.03),
+    new Vector3(-6.57, 0.21, -0.62),
+    new Vector3(-6.52, 0.21, -0.88),
+    new Vector3(-5.63, 0.21, -0.87),
+    new Vector3(-5.43, 0.21, -0.75),
+    new Vector3(-4.07, 0.21, -0.58),
+    new Vector3(-4.12, 0.21, -1.16),
+  ];
+  static CenterToDiesel = [
+    new Vector3(0, 8, 13.78),
+    new Vector3(-7.09, 0.21, -0.03),
+    new Vector3(-6.57, 0.21, -0.62),
+    new Vector3(-6.52, 0.21, -0.88),
+    new Vector3(-5.63, 0.21, -0.87),
+    new Vector3(-5.43, 0.21, -0.75),
+    new Vector3(-3.66, 0.21, -0.58),
+    new Vector3(-3.62, 0.21, 0.04),
+  ];
+  static CenterToPharmacy = [
+    new Vector3(0, 8, 13.78),
+    new Vector3(-7.09, 0.21, -0.03),
+    new Vector3(-6.57, 0.21, -0.62),
+    new Vector3(-6.52, 0.21, -0.88),
+    new Vector3(-6.11, 0.21, -0.93),
+    new Vector3(-5.99, 0.21, -1.56),
+    new Vector3(-5.94, 0.21, -1.64),
+  ];
   static CenterToAuto = [
     new Vector3(0, 8, 13.78),
     new Vector3(-0.29, 0.63, 1.73),
-    new Vector3(4.7, 0.21, 1.32),
-    new Vector3(4.6, 0.21, 0.85),
+    new Vector3(4.24, 0.21, 1.3),
+    new Vector3(4.47, 0.21, -0.33),
+    new Vector3(4.33, 0.21, -0.31),
+    new Vector3(3.53, 0.21, -0.31),
   ];
   static AutoToCenter = [
     new Vector3(4.6, 0.21, 0.85),
