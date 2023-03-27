@@ -33,6 +33,7 @@ export default class World {
       this.autoCollision = new AutoCollision();
       this.marker = new Marker();
       this.raycaster = new Raycaster();
+      this.isAnimating = false;
     });
   }
 

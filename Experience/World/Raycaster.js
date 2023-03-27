@@ -21,12 +21,17 @@ export default class Raycaster {
   onPointerMove(e) {
     this.pointer.x = (e.clientX / this.sizes.width) * 2 - 1;
     this.pointer.y = -(e.clientY / this.sizes.height) * 2 + 1;
-    this.updateRaycast();
-    const marker = this.locateMarker();
+    if (!this.world.isAnimating) {
+      this.updateRaycast();
+      const marker = this.locateMarker();
+      this.handleDisplayBuildings(marker);
+    }
+  }
+  handleDisplayBuildings(marker) {
     if (marker) {
       if (this.lastMarker === null) {
         this.lastMarker = marker;
-        marker.building.toggleEmissiveArea(true);
+        marker.emissiveSpot.toggleEmissiveArea(true);
         gsap.to(marker.buildingCeiling.position, {
           y: 1,
           duration: 1.5,
@@ -39,7 +44,11 @@ export default class Raycaster {
           duration: 1.5,
           ease: Power4.easeOut,
         });
-        if (marker.name === 'Pharmacy') {
+        if (
+          ['Pharmacy', 'Electrical', 'Diesel', 'Construction', 'HVAC'].includes(
+            marker.name
+          )
+        ) {
           gsap.to(
             this.world.b1f1.roomScene.children.find(
               (c) => c.name === 'ceiling003'
@@ -66,7 +75,7 @@ export default class Raycaster {
       }
     } else {
       if (this.lastMarker) {
-        this.lastMarker.building.toggleEmissiveArea(false);
+        this.lastMarker.emissiveSpot.toggleEmissiveArea(false);
         gsap.to(this.lastMarker.buildingCeiling.position, {
           y: this.lastMarker.originalScale.height,
           duration: 1.5,
@@ -79,7 +88,11 @@ export default class Raycaster {
           duration: 1.5,
           ease: Power4.easeOut,
         });
-        if (this.lastMarker.name === 'Pharmacy') {
+        if (
+          ['Pharmacy', 'Electrical', 'Diesel', 'Construction', 'HVAC'].includes(
+            this.lastMarker.name
+          )
+        ) {
           gsap.to(
             this.world.b1f1.roomScene.children.find(
               (c) => c.name === 'ceiling003'
@@ -111,6 +124,9 @@ export default class Raycaster {
     const marker = this.locateMarker();
     if (marker) {
       this.controls.updateCurve(marker.toPosition, marker.slowDownTime);
+      this.handleDisplayBuildings(marker);
+      marker.emissiveSpot.toggleEmissiveArea(true);
+      // this.markers.hideAll(marker.name);
     }
   }
   locateMarker() {
