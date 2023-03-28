@@ -114,38 +114,50 @@ export default class Curves {
       new Vector3(-3.62, 0.21, 0.04),
     ],
   };
-  static CenterToPharmacy = [
-    new Vector3(-1.23, 0.21, 1.08),
-    new Vector3(-6.03, 0.21, 1.08),
-    new Vector3(-7.09, 0.21, -0.03),
-    new Vector3(-6.57, 0.21, -0.62),
-    new Vector3(-6.52, 0.21, -0.88),
-    new Vector3(-6.11, 0.21, -0.93),
-    new Vector3(-5.99, 0.21, -1.56),
-    new Vector3(-5.94, 0.21, -1.64),
-  ];
-  static CenterToAuto = [
-    new Vector3(0, 8, 13.78),
-    new Vector3(-0.29, 0.63, 1.73),
-    new Vector3(4.24, 0.21, 1.3),
-    new Vector3(4.47, 0.21, -0.33),
-    new Vector3(4.33, 0.21, -0.31),
-    new Vector3(3.53, 0.21, -0.31),
-  ];
+  static CenterToPharmacy = {
+    move: new Vector3(-6.5, 8.43, 0.83),
+    look: new Vector3(-6.5, 0, 0),
+    line: [
+      new Vector3(-1.23, 0.21, 1.08),
+      new Vector3(-6.03, 0.21, 1.08),
+      new Vector3(-7.09, 0.21, -0.03),
+      new Vector3(-6.57, 0.21, -0.62),
+      new Vector3(-6.52, 0.21, -0.88),
+      new Vector3(-6.11, 0.21, -0.93),
+      new Vector3(-5.99, 0.21, -1.56),
+      new Vector3(-5.94, 0.21, -1.64),
+    ],
+  };
+  static CenterToAuto = {
+    move: new Vector3(2.25, 8.43, 3),
+    look: new Vector3(2.25, 0, 0),
+    line: [
+      new Vector3(-1.23, 0.21, 1.08),
+      new Vector3(-0.29, 0.63, 1.73),
+      new Vector3(4.24, 0.21, 1.3),
+      new Vector3(4.47, 0.21, -0.33),
+      new Vector3(4.33, 0.21, -0.31),
+      new Vector3(3.53, 0.21, -0.31),
+    ],
+  };
   static AutoToCenter = [
     new Vector3(4.6, 0.21, 0.85),
     new Vector3(4.7, 0.21, 1.32),
     new Vector3(-0.29, 0.63, 1.73),
     new Vector3(0, 8, 13.78),
   ];
-  static CenterToAutoCollision = [
-    new Vector3(0, 8, 13.78),
-    new Vector3(-0.41, 0.33, 1.43),
-    new Vector3(0.33, 0.21, 0.45),
-    new Vector3(0.62, 0.21, -1.46),
-    new Vector3(5.1, 0.21, -1.56),
-    new Vector3(5.15, 0.21, -1.95),
-  ];
+  static CenterToAutoCollision = {
+    move: new Vector3(1.4, 8.36, 2.3),
+    look: new Vector3(1.4, 0, -1.35),
+    line: [
+      new Vector3(-1.23, 0.21, 1.08),
+      new Vector3(-0.41, 0.33, 1.43),
+      new Vector3(0.33, 0.21, 0.45),
+      new Vector3(0.62, 0.21, -1.46),
+      new Vector3(5.1, 0.21, -1.56),
+      new Vector3(5.15, 0.21, -1.95),
+    ],
+  };
   static AutoCollisionToCenter = [
     new Vector3(5.15, 0.21, -1.95),
     new Vector3(5.1, 0.21, -1.56),

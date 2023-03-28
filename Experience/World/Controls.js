@@ -22,6 +22,32 @@ export default class Controls {
     this.animationEnabled = false;
     this.pointIndex = 0;
 
+    this.buttons = document.querySelector('.buttons');
+    this.backButton = document.querySelector('.back');
+    this.repeatButton = document.querySelector('.repeat');
+
+    this.backButton.addEventListener('click', () => {
+      this.buttons.style.bottom = '-5rem';
+      if (this.curveObject) this.scene.remove(this.curveObject);
+      this.experience.world.isAnimating = false;
+      gsap.to(this.camera.perspectiveCamera.position, {
+        x: -0.1,
+        y: 9.51,
+        z: 15.72,
+        duration: 1,
+      });
+      gsap.to(this.camera.controls.target, {
+        x: 0,
+        y: 0,
+        z: 0,
+        duration: 1,
+      });
+      // this.camera.controls.target = this.lookAtPosition;
+    });
+    this.repeatButton.addEventListener('click', () =>
+      this.createAnimatedLine()
+    );
+
     document.addEventListener('dblclick', () => {
       console.log(this.camera.perspectiveCamera.position);
     });
@@ -121,6 +147,7 @@ export default class Controls {
     this.geometry = new THREE.BufferGeometry().setFromPoints(this.points);
     this.material = new THREE.LineBasicMaterial({
       color: 0xff0000,
+      linewidth: 16,
     });
     this.curveObject = new THREE.Line(this.geometry, this.material);
     this.scene.add(this.curveObject);
@@ -156,6 +183,7 @@ export default class Controls {
     this.geometry = new THREE.BufferGeometry().setFromPoints(this.linePoints);
     this.material = new THREE.LineBasicMaterial({
       color: 0xff0000,
+      linewidth: 16,
     });
     this.curveObject = new THREE.Line(this.geometry, this.material);
     this.progress = 0;
@@ -218,7 +246,9 @@ export default class Controls {
         this.scene.add(this.curveObject);
       },
       onComplete: () => {
-        this.experience.world.isAnimating = false;
+        // this.experience.world.isAnimating = false;
+        // move in buttons
+        this.buttons.style.bottom = '2rem';
       },
     });
   }

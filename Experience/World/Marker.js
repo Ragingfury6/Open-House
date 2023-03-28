@@ -22,7 +22,7 @@ export default class Marker {
         toPosition: Curves.CenterToCoding,
         fromPosition: Curves.CodingToCenter,
         buildingCeiling: this.world.b1f2.roomScene.children.find(
-          (c) => c.name === 'ceiling'
+          (c) => c.name === 'ceiling004'
         ),
         emissiveSpot: this.world.b1f2,
         building: this.world.b1f2,
@@ -134,7 +134,7 @@ export default class Marker {
       x: 0.8184707164764404,
       y: 0.8184707164764404,
       z: 0.8184707164764404,
-      height: 0.3596576750278473,
+      height: 0.3684459924697876,
     };
     this.positionMaps[2].originalScale = {
       x: 1,

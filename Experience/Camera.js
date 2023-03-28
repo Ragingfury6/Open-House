@@ -20,9 +20,9 @@ export default class Camera {
       1000
     );
     this.scene.add(this.perspectiveCamera);
-    this.perspectiveCamera.position.x = 20;
-    this.perspectiveCamera.position.y = 20;
-    this.perspectiveCamera.position.z = 20;
+    this.perspectiveCamera.position.x = -0.1;
+    this.perspectiveCamera.position.y = 9.51;
+    this.perspectiveCamera.position.z = 15.72;
   }
   createOrthographicCamera() {
     this.frustrum = 5;
@@ -63,13 +63,13 @@ export default class Camera {
     this.perspectiveCamera.aspect = this.sizes.aspect;
     this.perspectiveCamera.updateProjectionMatrix();
 
-    this.orthographicCamera.left =
-      (-this.sizes.aspect * this.sizes.frustrum) / 2;
-    this.orthographicCamera.right =
-      (this.sizes.aspect * this.sizes.frustrum) / 2;
-    this.orthographicCamera.top = this.sizes.frustrum / 2;
-    this.orthographicCamera.bottom = -this.sizes.frustrum / 2;
-    this.orthographicCamera.updateProjectionMatrix();
+    // this.orthographicCamera.left =
+    //   (-this.sizes.aspect * this.sizes.frustrum) / 2;
+    // this.orthographicCamera.right =
+    //   (this.sizes.aspect * this.sizes.frustrum) / 2;
+    // this.orthographicCamera.top = this.sizes.frustrum / 2;
+    // this.orthographicCamera.bottom = -this.sizes.frustrum / 2;
+    // this.orthographicCamera.updateProjectionMatrix();
   }
 
   update() {

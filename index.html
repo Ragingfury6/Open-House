@@ -4,22 +4,48 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/98a50fb53a.js"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="/main.js" defer></script>
     <title>Vite App</title>
   </head>
   <body>
     <div class="experience">
       <canvas class="experience-canvas"></canvas>
     </div>
-    <!-- <div class="points__wrapper">
-      <div class="point p1">Coding</div>
-      <div class="point p2">Vet</div>
-      <div class="point p3">Construction</div>
-      <div class="point p4">Auto</div>
-      <div class="point p5">Auto Collision</div>
-    </div> -->
+    <div class="buttons">
+      <button class="back"><i class="fa-solid fa-arrow-left"></i></button>
+      <button class="repeat"><i class="fa-solid fa-rotate-left"></i></button>
+    </div>
+    <div class="instructions">
+      <div class="mice">
+        <div class="mouse-wrapper">
+          Rotate
+          <img src="mice/lmb.png" alt="Left Mouse Button" class="mouse-image" />
+        </div>
+        <div class="mouse-wrapper">
+          Pan
+          <img
+            src="mice/rmb.png"
+            alt="Right Mouse Button"
+            class="mouse-image"
+          />
+        </div>
+        <div class="mouse-wrapper">
+          Zoom
+          <img
+            src="mice/mmb.png"
+            alt="Middle Mouse Button"
+            class="mouse-image"
+          />
+        </div>
+      </div>
+      <h2 class="learn-more">Click on a Marker to Learn More</h2>
+    </div>
     <div class="loader__wrapper">
       <p class="loader__wrapper__items">Loaded Resource 0 / 35</p>
     </div>
-    <script type="module" src="/main.js"></script>
   </body>
 </html>

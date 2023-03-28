@@ -42,7 +42,8 @@ export default class Auto {
   setModel() {
     this.scene.add(this.roomScene);
   }
-  toggleEmissiveArea(type) {
+  toggleEmissiveArea(type, room = null) {
+    console.log(this.roomScene);
     const highlight = this.roomScene.children.find(
       (c) => c.name === 'automotive'
     );

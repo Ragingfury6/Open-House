@@ -28,10 +28,14 @@ export default class Vet {
     //   );
     // this.roomScene.position.set(this.obj.x, this.obj.y, this.obj.z);
     // this.roomScene.scale.set(3, 3, 3);
-    this.roomScene.children.find((c) => c.name === 'glass001').material =
+    console.log(this.roomScene);
+    this.roomScene.children.find((c) => c.name === 'windows').material =
       this.materials.glassMaterial;
-    this.roomScene.children.find((c) => c.name === 'walls').material =
-      this.materials.wallsMaterial;
+    this.roomScene.children
+      .find((c) => c.name === 'walls')
+      .children.forEach((child) => {
+        child.material = this.materials.wallsMaterial;
+      });
     this.roomScene.children.find((c) => c.name === 'floor').material =
       this.materials.floorMaterial;
     console.log(this.roomScene);
@@ -40,7 +44,11 @@ export default class Vet {
   setModel() {
     this.scene.add(this.roomScene);
   }
-  toggleEmissiveArea(type) {}
+  toggleEmissiveArea(type, room = null) {
+    const highlight = this.roomScene.children.find((c) => c.name === 'Vet');
+    highlight.material = highlight.material.clone();
+    highlight.material.emissive = new THREE.Color(0, type ? 5 : 0, 0);
+  }
   resize() {}
 
   update() {}

@@ -28,10 +28,11 @@ export default class B1F2 {
   }
   setModel() {
     this.scene.add(this.roomScene);
+    // this.roomScene.position.z -= 0.43;
   }
 
-  toggleEmissiveArea(type) {
-    const highlight = this.roomScene.children.find((c) => c.name === 'coding');
+  toggleEmissiveArea(type, room = null) {
+    const highlight = this.roomScene.children.find((c) => c.name === 'Coding');
     highlight.material = highlight.material.clone();
     highlight.material.emissive = new THREE.Color(0, type ? 5 : 0, 0);
   }

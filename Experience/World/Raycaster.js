@@ -21,8 +21,8 @@ export default class Raycaster {
   onPointerMove(e) {
     this.pointer.x = (e.clientX / this.sizes.width) * 2 - 1;
     this.pointer.y = -(e.clientY / this.sizes.height) * 2 + 1;
+    this.updateRaycast();
     if (!this.world.isAnimating) {
-      this.updateRaycast();
       const marker = this.locateMarker();
       this.handleDisplayBuildings(marker);
     }
@@ -31,7 +31,7 @@ export default class Raycaster {
     if (marker) {
       if (this.lastMarker === null) {
         this.lastMarker = marker;
-        marker.emissiveSpot.toggleEmissiveArea(true);
+        marker.emissiveSpot.toggleEmissiveArea(true, marker.name);
         gsap.to(marker.buildingCeiling.position, {
           y: 1,
           duration: 1.5,
@@ -75,7 +75,10 @@ export default class Raycaster {
       }
     } else {
       if (this.lastMarker) {
-        this.lastMarker.emissiveSpot.toggleEmissiveArea(false);
+        this.lastMarker.emissiveSpot.toggleEmissiveArea(
+          false,
+          this.lastMarker.name
+        );
         gsap.to(this.lastMarker.buildingCeiling.position, {
           y: this.lastMarker.originalScale.height,
           duration: 1.5,
@@ -125,7 +128,7 @@ export default class Raycaster {
     if (marker) {
       this.controls.updateCurve(marker.toPosition, marker.slowDownTime);
       this.handleDisplayBuildings(marker);
-      marker.emissiveSpot.toggleEmissiveArea(true);
+      marker.emissiveSpot.toggleEmissiveArea(true, marker.name);
       // this.markers.hideAll(marker.name);
     }
   }
