@@ -8,6 +8,7 @@ import { Power0 } from 'gsap/src/all';
 export default class Controls {
   constructor() {
     this.experience = new Experience();
+    this.controls = this.experience.camera.controls;
     this.scene = this.experience.scene;
     this.camera = this.experience.camera;
     this.resources = this.experience.resources;
@@ -41,6 +42,12 @@ export default class Controls {
         y: 0,
         z: 0,
         duration: 1,
+        onComplete: () => {
+          this.controls.minPolarAngle = Math.PI / 8;
+          this.controls.maxPolarAngle = Math.PI / 2.5;
+          this.controls.minDistance = 3;
+          this.controls.maxDistance = 25;
+        },
       });
       // this.camera.controls.target = this.lookAtPosition;
     });

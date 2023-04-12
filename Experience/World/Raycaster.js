@@ -125,7 +125,7 @@ export default class Raycaster {
   }
   onMouseDown() {
     const marker = this.locateMarker();
-    if (marker) {
+    if (marker && !this.world.isAnimating) {
       this.controls.updateCurve(marker.toPosition, marker.slowDownTime);
       this.handleDisplayBuildings(marker);
       marker.emissiveSpot.toggleEmissiveArea(true, marker.name);

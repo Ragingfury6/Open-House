@@ -94,14 +94,16 @@
 }
 .mice {
   display: flex;
-  gap: 2rem;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0.25rem;
 }
 .learn-more {
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 .mouse-image {
-  width: 8rem;
-  height: 8rem;
+  width: 6rem;
+  height: 6rem;
   display: block;
   margin-top: 1rem;
 }

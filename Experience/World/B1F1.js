@@ -42,7 +42,7 @@ export default class B1F1 {
   }
   setModel() {
     this.scene.add(this.roomScene);
-    this.roomScene.position.z -= 0.1;
+    // this.roomScene.position.z -= 0.1;
   }
 
   toggleEmissiveArea(type, room = null) {
